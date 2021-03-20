@@ -1,0 +1,5 @@
+See License files for the three parts of the u2if project:
+ - python library: source/LICENSE
+ - firmware for raspberry pico: firmware/source/LICENSE
+ - KiCad dev. board: board/LICENSE
+

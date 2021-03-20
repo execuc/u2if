@@ -1,0 +1,19 @@
+#ifndef _U2IF_CONFIG_H
+#define _U2IF_CONFIG_H
+
+#define PROJECT_NAME "u2if"
+#define PROJECT_VER  "0.1.0"
+#define PROJECT_VER_MAJOR 0
+#define PROJECT_VER_MINOR 1
+#define PROJECT_VER_PATCH 0
+
+#define I2C0_ENABLED 1
+#define I2C1_ENABLED 1
+#define SPI0_ENABLED 1
+#define SPI1_ENABLED 1
+#define UART_ENABLED 1
+#define PWM_ENABLED  1
+#define ADC_ENABLED  1
+#define GPIO_ENABLED 1
+
+#endif // _U2IF_CONFIG_H

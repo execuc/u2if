@@ -1,0 +1,10 @@
+firmware/pico-sdk
+firmware/source/build/
+firmware/source/config.h.in
+*.idea
+dist
+u2if.egg-info
+build
+*.txt.user
+__pycache__
+venv/

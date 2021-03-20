@@ -1,0 +1,9 @@
+EESchema-DOCLIB  Version 2.0
+#
+$CMP SSD1306_I2C
+D LCD 16x2 Alphanumeric gray backlight, 3 or 5 V VDD
+K display LCD dot-matrix
+F http://www.raystar-optronics.com/down.php?ProID=18
+$ENDCMP
+#
+#End Doc Library

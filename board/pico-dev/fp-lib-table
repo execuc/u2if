@@ -1,0 +1,4 @@
+(fp_lib_table
+  (lib (name MCU_RaspberryPi_and_Boards)(type KiCad)(uri ${KIPRJMOD}/footprint/MCU_RaspberryPi_and_Boards.pretty)(options "")(descr ""))
+  (lib (name oled_ssd1306)(type KiCad)(uri ${KIPRJMOD}/footprint/oled_ssd1306.pretty)(options "")(descr ""))
+)

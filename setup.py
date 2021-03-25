@@ -1,7 +1,7 @@
 from setuptools import setup
 
 setup(name='u2if',
-      version='0.1',
+      version='0.2',
       description='Micropython Machine module for x86 with pico bridge',
       url='http://github.com/execuc/u2if',
       author='execuc',

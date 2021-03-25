@@ -1,6 +1,6 @@
 firmware/pico-sdk
 firmware/source/build/
-firmware/source/config.h.in
+firmware/source/config.h
 firmware/source/interfaces/ws2812.pio.h
 *.idea
 dist

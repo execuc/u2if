@@ -5,6 +5,7 @@ from .pwm import PWM
 from .adc import ADC
 from .uart import UART
 from .spi import SPI
+from .ws2812b import WS2812B
 from .u2if_const import u2if
 from .u2if import Device
 

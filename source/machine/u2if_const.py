@@ -148,4 +148,13 @@ I2C1_WRITE = I2C0_WRITE + 0x10
 I2C1_READ = I2C0_READ + 0x10
 I2C1_WRITE_FROM_UART = I2C0_WRITE_FROM_UART + 0x10
 
+# WS2812B (LED)
+# | WS2812B_INIT |
+WS2812B_INIT = 0xA0
+# | WS2812B_DEINIT |
+WS2812B_DEINIT = 0xA1
+# | WS2812B_WRITE | ADDR | NB_BYTES[4] L.Endian (== NB_LED *4)| => First | WS2812B_WRITE | CmdStatus::OK|NOK | err:0x01 (Too many led for the firmware) err:0x02 (Transfer already in progress) |
+# ... and after the CDC stream (when transfer to led starting) | WS2812B_WRITE | CmdStatus::OK |
+WS2812B_WRITE = 0xA2
+
 # TODO: WS2812B LED

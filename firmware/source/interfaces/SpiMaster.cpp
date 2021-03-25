@@ -47,7 +47,7 @@ CmdStatus SPIMaster::task(uint8_t response[64]) {
     while(_totalRemainingBytesToSend > 0 && streamRxAvailableSize() && !error){
         streamRxRead();
         uint nbBytes = std::min(_totalRemainingBytesToSend, _bufferRx.size());
-        int nbWritten = spi_write_blocking (_spiInst, _bufferRx.getDataPtr(), nbBytes);
+        int nbWritten = spi_write_blocking (_spiInst, _bufferRx.getDataPtr8(), nbBytes);
         if(nbWritten != static_cast<int>(nbBytes)) {
             error = true;
         } else {

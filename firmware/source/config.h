@@ -7,6 +7,7 @@
 #define PROJECT_VER_MINOR 1
 #define PROJECT_VER_PATCH 0
 
+#define GPIO_ENABLED 1
 #define I2C0_ENABLED 1
 #define I2C1_ENABLED 1
 #define SPI0_ENABLED 1
@@ -14,6 +15,6 @@
 #define UART_ENABLED 1
 #define PWM_ENABLED  1
 #define ADC_ENABLED  1
-#define GPIO_ENABLED 1
+#define WS2812_SIZE 1000
 
 #endif // _U2IF_CONFIG_H

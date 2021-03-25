@@ -21,6 +21,7 @@ extern "C" {
 #include "interfaces/Pwm.h"
 #include "interfaces/Adc.h"
 #include "interfaces/Uart.h"
+#include "interfaces/Ws2812b.h"
 
 
 void sendOrSaveResponse(uint8_t response[64]);
@@ -64,6 +65,10 @@ static Adc adc;
 static Uart uart(0);
 #endif
 
+#if WS2812_SIZE > 0
+static Ws2812b ws2812b(WS2812_SIZE);
+#endif
+
 static std::vector<BaseInterface*> interfaces = { &gpio
 #if I2C0_ENABLED
 , &ic2_0
@@ -85,6 +90,9 @@ static std::vector<BaseInterface*> interfaces = { &gpio
 #endif
 #if UART_ENABLED
 , &uart
+#endif
+#if WS2812_SIZE > 0
+, &ws2812b
 #endif
 , &sys
 };

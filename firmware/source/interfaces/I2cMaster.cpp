@@ -51,7 +51,7 @@ CmdStatus I2CMaster::task(uint8_t response[64]) {
         int nbWritten = i2c_write_blocking(
             _i2cInst,
             _currentStreamAddress, // addr
-            _bufferRx.getDataPtr(), //src
+            _bufferRx.getDataPtr8(), //src
             nbBytes, //len
             noStop
         );

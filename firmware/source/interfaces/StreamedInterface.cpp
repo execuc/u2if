@@ -21,6 +21,7 @@ uint32_t StreamedInterface::streamRxAvailableSize() {
 }
 
 uint32_t StreamedInterface::streamRxRead() {
-    _bufferRx.setSize(tud_cdc_read(_bufferRx.getDataPtr(), std::min(_bufferRx.getAllocateSize(), streamRxAvailableSize())));
+    uint32_t nbByteCanRead = std::min(_bufferRx.getAllocateSize() - _bufferRx.size(), streamRxAvailableSize());
+    _bufferRx.setSize(_bufferRx.size() + tud_cdc_read(_bufferRx.getDataPtr8() + _bufferRx.size(), nbByteCanRead));
     return _bufferRx.size();
 }

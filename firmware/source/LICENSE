@@ -55,6 +55,18 @@ WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWIS
 THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -------------------------------------------------------------------------------------------------------------------------
 
+-----------------------------------------
+Raspberry Pico Examples (for ws2812 led):
+-----------------------------------------
+
+;
+; Copyright (c) 2020 Raspberry Pi (Trading) Ltd.
+;
+; SPDX-License-Identifier: BSD-3-Clause
+;
+-------------------------------------------------------------------------------------------------------------------------
+
+
 --------
 TinyUsb:
 --------

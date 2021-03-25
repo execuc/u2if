@@ -40,9 +40,9 @@ The following features are coded:
 * machine.I2C
 * machine.SPI
 * machine.PWM
+* WS2812B led
 
 Other features to do:
-* WS2812B led driver
 * I2S
 * ...
 

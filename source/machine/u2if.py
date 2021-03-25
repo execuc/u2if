@@ -60,8 +60,6 @@ class Device(metaclass=helper.Singleton):
             # 64 (size of the USB report), the last BULK transfer is not received or remains pending.
             # We add a character, it is not a problem, it will be discared in the protocol.
             self._serial.write([0])
-        else:
-            self._serial.write(buf)
         self._serial.flush()
 
     def process_irq(self):

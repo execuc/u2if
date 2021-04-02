@@ -83,6 +83,7 @@ There is no documentation but [examples](examples/) can help to use this library
  * Analog read.
  * Rotrary encoder
  * I2C scan
+ * Play 48khz 16bit .wav over I2S DAC (PAM5102)
  * ...
 
 

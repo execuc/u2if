@@ -7,11 +7,12 @@
 #include "hardware/irq.h"
 #include "ws2812.pio.h"
 
-static PIO _pio = pio0;
+static const PIO _pio = pio0;
+static const uint _sm = 0;
 static int _dmaChannel;
 static bool _dmaInProgress = false;
 
-void dma_handler() {
+static void dma_handler() {
     _dmaInProgress = false;
     // Clear the interrupt request.
     dma_hw->ints0 = 1u << _dmaChannel;
@@ -19,6 +20,7 @@ void dma_handler() {
 
 Ws2812b::Ws2812b(uint maxLeds)
     : StreamedInterface(maxLeds * 4 +1 /**/), _maxLeds(maxLeds), _internalState(INTERNAL_STATE::IDLE) {
+    initDma();
 }
 
 Ws2812b::~Ws2812b() {
@@ -72,40 +74,27 @@ CmdStatus Ws2812b::init(uint8_t const *cmd) {
         return CmdStatus::NOK;
     }
 
-    // TODO: use free SM
-    uint sm = 0;
-    uint offset = pio_add_program(_pio, &ws2812_program);
+    _offsetProgram = pio_add_program(_pio, &ws2812_program);
     const uint pinId = cmd[1];
-    ws2812_program_init(_pio, sm, offset, pinId, 800000, false);
-    // Init dma
-    _dmaChannel = dma_claim_unused_channel(true);
-    dma_channel_config dmaConfig = dma_channel_get_default_config(_dmaChannel);
-    channel_config_set_transfer_data_size(&dmaConfig, DMA_SIZE_32);
-    channel_config_set_read_increment(&dmaConfig, true);
-    channel_config_set_dreq(&dmaConfig, DREQ_PIO0_TX0);
-    dma_channel_configure(_dmaChannel,
-            &dmaConfig,
-            &pio0->txf[0],  // Write address (only need to set this once)
-            NULL,           // Don't provide a read address yet
-            0,              // Write the same value many times, then halt and interrupt
-            false           // Don't start yet
-        );
-
-    // Tell the DMA to raise IRQ line 0 when the channel finishes a block
-    dma_channel_set_irq0_enabled(_dmaChannel, true);
-
-    // Configure the processor to run dma_handler() when DMA IRQ 0 is asserted
-    irq_set_exclusive_handler(DMA_IRQ_0, dma_handler);
-    irq_set_enabled(DMA_IRQ_0, true);
+    ws2812_program_init(_pio, _sm, _offsetProgram, pinId, 800000, false);
 
     setInterfaceState(InterfaceState::INTIALIZED);
     return CmdStatus::OK;
 }
 
 CmdStatus Ws2812b::deinit(uint8_t const *cmd) {
-    (void)cmd;
-    // TODO : implement it
-    // Deinit + setInterfaceState(InterfaceState::NOT_INTIALIZED);
+    (void)cmd; 
+    if(getInterfaceState() == InterfaceState::NOT_INITIALIZED) {
+        return CmdStatus::OK; // do nothing
+    }
+
+    dma_channel_abort(_dmaChannel);
+    dma_channel_wait_for_finish_blocking(_dmaChannel);
+    pio_sm_set_enabled(_pio, _sm, false);
+    _dmaInProgress = false;
+
+    pio_remove_program(_pio, &ws2812_program, _offsetProgram);
+    setInterfaceState(InterfaceState::NOT_INITIALIZED);
     return CmdStatus::OK;
 }
 
@@ -125,6 +114,30 @@ CmdStatus Ws2812b::write(uint8_t const *cmd, uint8_t response[64]) {
     _totalRemainingBytesToSend = nbBytes;
     _internalState = INTERNAL_STATE::WAIT_PIXELS;
     return CmdStatus::OK;
+}
+
+void Ws2812b::initDma() {
+    // Init dma
+    _dmaChannel = dma_claim_unused_channel(true);
+    dma_channel_config dmaConfig = dma_channel_get_default_config(_dmaChannel);
+    channel_config_set_transfer_data_size(&dmaConfig, DMA_SIZE_32);
+    channel_config_set_read_increment(&dmaConfig, true);
+    channel_config_set_dreq(&dmaConfig, DREQ_PIO0_TX0);
+    dma_channel_configure(_dmaChannel,
+            &dmaConfig,
+            &pio0->txf[0],  // Write address (only need to set this once)
+            NULL,           // Don't provide a read address yet
+            0,              // Write the same value many times, then halt and interrupt
+            false           // Don't start yet
+        );
+
+    // Tell the DMA to raise IRQ line 0 when the channel finishes a block
+    dma_channel_set_irq0_enabled(_dmaChannel, true);
+
+    // Configure the processor to run dma_handler() when DMA IRQ 0 is asserted
+    irq_set_exclusive_handler(DMA_IRQ_0, dma_handler);
+    //irq_add_shared_handler(DMA_IRQ_0, dma_handler, 0); => if DMA ira0 is shared
+    irq_set_enabled(DMA_IRQ_0, true);
 }
 
 void Ws2812b::startTransfer(uint32_t *pixelBuf, uint32_t nbPixels) {

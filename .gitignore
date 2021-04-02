@@ -1,7 +1,8 @@
 firmware/pico-sdk
 firmware/source/build/
 firmware/source/config.h
-firmware/source/interfaces/ws2812.pio.h
+examples/external/ressources/sound/music.wav
+*.pio.h
 *.idea
 dist
 u2if.egg-info

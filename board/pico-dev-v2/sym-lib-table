@@ -1,0 +1,4 @@
+(sym_lib_table
+  (lib (name MCU_RaspberryPi_and_Boards)(type Legacy)(uri ${KIPRJMOD}/lib/MCU_RaspberryPi_and_Boards.lib)(options "")(descr ""))
+  (lib (name oled_ssd1306)(type Legacy)(uri ${KIPRJMOD}/lib/oled_ssd1306.lib)(options "")(descr ""))
+)

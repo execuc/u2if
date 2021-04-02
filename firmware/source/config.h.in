@@ -16,5 +16,6 @@
 #define PWM_ENABLED  ${PWM_ENABLE}
 #define ADC_ENABLED  ${ADC_ENABLE}
 #define WS2812_SIZE ${WS2812_SIZE}
+#define I2S_ENABLED ${I2S_ENABLE}
 
 #endif // _U2IF_CONFIG_H

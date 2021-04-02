@@ -4,19 +4,13 @@
 #define HID_CMD_SIZE 64
 #define HID_RESPONSE_SIZE 64
 
-// TODO: PWM
-// GP pin
 namespace Pin {
     enum ID {
         // GPIO
-        // Mode
-        GP2_MODE = 2,
-        // SW
+        GP_2 = 2,
+        GP_3 = 3,
         GP_6 = 6,
         GP_9 = 9,
-        // Led
-        GP_3 = 3,
-        // Other
         GP_7 = 7,
         GP_8 = 8,
         GP_21 = 21,
@@ -170,7 +164,17 @@ namespace Report {
         WS2812B_DEINIT = 0xA1,
         // | WS2812B_WRITE | ADDR | NB_BYTES[4] L.Endian (== NB_LED *4)| => First | WS2812B_WRITE | CmdStatus::OK|NOK | err:0x01 (Too many led for the firmware), err:0x02 (Transfer already in progress) |
         // ... and after the CDC stream (when transfer to led starting) | WS2812B_WRITE | CmdStatus::OK |
-        WS2812B_WRITE = 0xA2
+        WS2812B_WRITE = 0xA2,
+
+        // I2S
+        // |I2S_INIT | MODE (0x01: mono, 0x02: stereo) => Mode not implemented,only stereo 16bit/channel |
+        I2S_INIT = 0xB0,
+        // |I2S_DEINIT|
+        I2S_DEINIT = 0xB1,
+        // |I2S_SET_FREQ | FREQ[4] L.Endian |
+        I2S_SET_FREQ = 0xB2,
+        // | I2S_WRITE_BUFFER | BUFFER_SIZE[4] L.Endian (MAX=4000bytes)| => First | I2S_WRITE_BUFFER | CmdStatus::OK | and after the CDC stream | I2S_WRITE_BUFFER | CmdStatus::OK |
+        I2S_WRITE_BUFFER = 0xB3
     };
 }
 

@@ -10,11 +10,16 @@ Plug in the PICO while holding down the BOOTSEL button, then a USB flash storage
 The firmware makes the pico act like a USB device (generic HID and CDC). Each command is blocking and is done via the HID interface (64 byte report). For some operations, CDC is used to increase the transfer speed.
 
 ## Linux: UDEV rule
-To make PICO with this firmware usable in non-root mode, add the following file (/etc/udev/rules.d/55-hid.rules):
+To make PICO with this firmware usable in non-root mode, add the following file (/etc/udev/rules.d/55-u2if.rules):
 
 ```bash
 SUBSYSTEM=="usb", ATTR{idVendor}=="cafe", ATTR{idProduct}=="4005", MODE="0666"
 ```
+
+Then reboot or reload udev rules:
+
+ * sudo udevadm control --reload-rules
+ * sudo udevadm trigger
 
 ## Build firmware
 

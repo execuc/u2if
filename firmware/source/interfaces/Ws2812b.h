@@ -25,9 +25,11 @@ protected:
     CmdStatus init(uint8_t const *cmd);
     CmdStatus deinit(uint8_t const *cmd);
     CmdStatus write(uint8_t const *cmd, uint8_t response[64]);
+    void initDma();
     void startTransfer(uint32_t *pixelBuf, uint32_t nbPixels);
 
     uint32_t _maxLeds;
+    uint _offsetProgram;
     INTERNAL_STATE _internalState;
 };
 

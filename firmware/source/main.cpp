@@ -22,6 +22,7 @@ extern "C" {
 #include "interfaces/Adc.h"
 #include "interfaces/Uart.h"
 #include "interfaces/Ws2812b.h"
+#include "interfaces/I2s.h"
 
 
 void sendOrSaveResponse(uint8_t response[64]);
@@ -69,6 +70,10 @@ static Uart uart(0);
 static Ws2812b ws2812b(WS2812_SIZE);
 #endif
 
+#if I2S_ENABLED
+static I2s i2s(4000, 5);
+#endif
+
 static std::vector<BaseInterface*> interfaces = { &gpio
 #if I2C0_ENABLED
 , &ic2_0
@@ -94,6 +99,9 @@ static std::vector<BaseInterface*> interfaces = { &gpio
 #if WS2812_SIZE > 0
 , &ws2812b
 #endif
+#if I2S_ENABLED
+, &i2s
+#endif
 , &sys
 };
 
@@ -104,7 +112,7 @@ static const uint TX_REPORT_QUEUE_SIZE = 20;
 // Main loop function
 //--------------------------------------------------------------------+
 int main(void) {
-    //stdio_init_all(); // to debug with printf (set pico_enable_stdio_uart(u2if 1) in CMakeLists) Caution, it is UART0.
+    stdio_init_all(); // to debug with printf (set pico_enable_stdio_uart(u2if 1) in CMakeLists) Caution, it is UART0.
 
     modeActivity.init();
 

@@ -14,11 +14,12 @@ class WS2812B:
         self.deinit()
 
     def _init(self):
+        if self._initialized:
+            return
         res = self._device.send_report(bytes([report_const.WS2812B_INIT, self.pin_id]))
         if res[1] != report_const.OK:
             raise RuntimeError("WS2812B init error.")
         return True
-        pass
 
     def deinit(self):
         if not self._initialized:
@@ -26,7 +27,7 @@ class WS2812B:
         res = self._device.send_report(bytes([report_const.WS2812B_DEINIT]))
         if res[1] != report_const.OK:
             raise RuntimeError("WS2812B deinit error.")
-        pass
+        self._initialized = False
 
     def write(self, buffer):
         return self._write_stream(buffer)

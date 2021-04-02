@@ -7,7 +7,7 @@ get_filename_component(PICO_SDK_PATH "${CMAKE_CURRENT_LIST_DIR}/../pico-sdk" ABS
 # note: this must happen before project()
 include(pico_sdk_import.cmake)
 
-project(u2if VERSION "0.2.0")
+project(u2if VERSION "0.3.0")
 
 # initialize the Pico SDK
 pico_sdk_init()
@@ -20,6 +20,7 @@ set(SPI1_ENABLE 1)
 set(UART_ENABLE 1)
 set(PWM_ENABLE 1)
 set(ADC_ENABLE 1)
+set(I2S_ENABLE 1)
 set(WS2812_SIZE 1000) #0 to disable
 configure_file("${PROJECT_SOURCE_DIR}/config.h.in" "${PROJECT_SOURCE_DIR}/config.h")
 
@@ -32,17 +33,19 @@ add_executable(u2if
 	${InterfaceSources}
         )
 
+
 # generate the header file into the source tree as it is included in the RP2040 datasheet
-pico_generate_pio_header(u2if ${CMAKE_CURRENT_LIST_DIR}/interfaces/ws2812.pio OUTPUT_DIR ${CMAKE_CURRENT_LIST_DIR}/interfaces/)
+FILE(GLOB PioSources interfaces/*.pio)
+pico_generate_pio_header(u2if ${PioSources} OUTPUT_DIR ${CMAKE_CURRENT_LIST_DIR}/interfaces/)
 
 target_include_directories(u2if PRIVATE ${CMAKE_CURRENT_LIST_DIR})
 
 target_link_libraries(u2if PRIVATE pico_stdlib pico_unique_id tinyusb_device tinyusb_board 
 hardware_i2c hardware_watchdog hardware_pwm hardware_adc hardware_spi
-hardware_pio hardware_dma)
+hardware_pio hardware_dma pico_sync)
 
 pico_enable_stdio_usb(u2if 0)
-pico_enable_stdio_uart(u2if 0) # Set to 1, call stdio_init_all(); to make printf for debugging puroposes
+pico_enable_stdio_uart(u2if 1) # Set to 1, call stdio_init_all(); to make printf for debugging puroposes
 
 pico_add_extra_outputs(u2if)
 

@@ -41,10 +41,8 @@ The following features are coded:
 * machine.SPI
 * machine.PWM
 * WS2812B led
-
-Other features to do:
 * I2S
-* ...
+
 
 ## Licenses and Project directories
 This repository is presented as the sources of a python project ([License](source/LICENSE)).

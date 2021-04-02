@@ -112,7 +112,7 @@ static const uint TX_REPORT_QUEUE_SIZE = 20;
 // Main loop function
 //--------------------------------------------------------------------+
 int main(void) {
-    stdio_init_all(); // to debug with printf (set pico_enable_stdio_uart(u2if 1) in CMakeLists) Caution, it is UART0.
+    //stdio_init_all(); // to debug with printf (set pico_enable_stdio_uart(u2if 1) in CMakeLists) Caution, it is UART0.
 
     modeActivity.init();
 

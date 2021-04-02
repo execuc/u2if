@@ -35,8 +35,8 @@ add_executable(u2if
 
 
 # generate the header file into the source tree as it is included in the RP2040 datasheet
-FILE(GLOB PioSources interfaces/*.pio)
-pico_generate_pio_header(u2if ${PioSources} OUTPUT_DIR ${CMAKE_CURRENT_LIST_DIR}/interfaces/)
+pico_generate_pio_header(u2if ${CMAKE_CURRENT_LIST_DIR}/interfaces/ws2812.pio OUTPUT_DIR ${CMAKE_CURRENT_LIST_DIR}/interfaces/)
+pico_generate_pio_header(u2if ${CMAKE_CURRENT_LIST_DIR}/interfaces/audio_i2s.pio OUTPUT_DIR ${CMAKE_CURRENT_LIST_DIR}/interfaces/)
 
 target_include_directories(u2if PRIVATE ${CMAKE_CURRENT_LIST_DIR})
 
@@ -45,7 +45,7 @@ hardware_i2c hardware_watchdog hardware_pwm hardware_adc hardware_spi
 hardware_pio hardware_dma pico_sync)
 
 pico_enable_stdio_usb(u2if 0)
-pico_enable_stdio_uart(u2if 1) # Set to 1, call stdio_init_all(); to make printf for debugging puroposes
+pico_enable_stdio_uart(u2if 0) # Set to 1, call stdio_init_all(); to make printf for debugging puroposes
 
 pico_add_extra_outputs(u2if)
 

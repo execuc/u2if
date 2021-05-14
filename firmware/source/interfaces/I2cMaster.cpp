@@ -1,7 +1,6 @@
 #include "I2cMaster.h"
 #include "string.h"
 
-
 I2CMaster::I2CMaster(uint8_t i2cIndex, uint streamBufferSize = 512)
     : StreamedInterface(streamBufferSize),
       _i2cInst(i2cIndex == 0 ? i2c0 : i2c1),

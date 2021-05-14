@@ -10,3 +10,4 @@ build
 *.txt.user
 __pycache__
 venv/
+.vscode

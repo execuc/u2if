@@ -12,6 +12,12 @@ project(u2if VERSION "0.3.0")
 # initialize the Pico SDK
 pico_sdk_init()
 
+# define board, pico is default
+# BOARD_FEATHER, BOARD_ITSYBITSY, BOARD_QTPY, BOARD_QT2040_TRINKEY
+add_compile_definitions(BOARD_FEATHER)
+# might help for feather?
+#add_compile_definitions(PICO_DEFAULT_BOOT_STAGE2_FILE=${CMAKE_CURRENT_SOURCE_DIR}/../pico-sdk/src/rp2_common/boot_stage2/boot2_generic_03h.S)
+
 # Enable wanted peripherals
 set(I2C0_ENABLE 1)
 set(I2C1_ENABLE 1)

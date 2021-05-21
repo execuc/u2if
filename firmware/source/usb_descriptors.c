@@ -38,11 +38,29 @@
  */
 #define _PID_MAP(itf, n)  ( (CFG_TUD_##itf) << (n) )
 
-#define BOARD_FEATHER
 #if defined(BOARD_FEATHER)
+  #define USB_MFG "Adafruit"
+  #define USB_PRD "Feather RP2040 U2IF"
   #define USB_VID 0x239A
-  #define USB_PID 0x80F2
+  #define USB_PID 0x00F1
+#elif defined(BOARD_ITSYBITSY)
+  #define USB_MFG "Adafruit"
+  #define USB_PRD "ItsyBitsy RP2040 U2IF"
+  #define USB_VID 0x239A
+  #define USB_PID 0x00FD
+#elif defined(BOARD_QTPY)
+  #define USB_MFG "Adafruit"
+  #define USB_PRD "QT Py RP2040 U2IF"
+  #define USB_VID 0x239A
+  #define USB_PID 0x00F7
+#elif defined(BOARD_QT2040_TRINKEY)
+  #define USB_MFG "Adafruit"
+  #define USB_PRD "QT2040 Trinkey U2IF"
+  #define USB_VID 0x239A
+  #define USB_PID 0x0109
 #else
+  #define USB_MFG "Pico"
+  #define USB_PRD "U2IF"
   #define USB_VID 0xCAFE
   #define USB_PID           (0x4000 | _PID_MAP(CDC, 0) | _PID_MAP(MSC, 1) | _PID_MAP(HID, 2) | \
                             _PID_MAP(MIDI, 3) | _PID_MAP(VENDOR, 4) )
@@ -154,8 +172,8 @@ uint8_t const *tud_descriptor_configuration_cb(uint8_t index) {
 char const *string_desc_arr[] =
         {
                 (const char[]) {0x09, 0x04}, // 0: is supported language is English (0x0409)
-                "Pico",                     // 1: Manufacturer
-                "U2IF",              // 2: Product
+                USB_MFG,                     // 1: Manufacturer
+                USB_PRD,              // 2: Product
                 "",                      // 3: Serials, should use chip ID
                 "CDC Streamed data channel"  ,           // 4: CDC Interface
                 "HID Command channel",                     // 5: HID

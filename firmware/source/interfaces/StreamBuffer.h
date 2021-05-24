@@ -12,7 +12,7 @@ public:
     inline uint32_t getAllocateSize() const {return static_cast<uint32_t>(_buffer.size()*4);}
     inline uint8_t* getDataPtr8() {return (uint8_t*)_buffer.data();}
     inline uint32_t* getDataPtr32() {return static_cast<uint32_t*>(_buffer.data());}
-    inline uint32_t setSize(uint32_t size) {_bufSize = size;}
+    inline void setSize(uint32_t size) {_bufSize = size;}
     inline uint32_t size() const {return _bufSize;}
 protected:
     //std::vector<uint8_t> _buffer;
@@ -22,4 +22,3 @@ protected:
 
 
 #endif
-

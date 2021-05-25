@@ -1,6 +1,8 @@
 #ifndef _PICO_INTERFACES_BOARD_H
 #define _PICO_INTERFACES_BOARD_H
 
+#include "pins.h"
+
 #define HID_CMD_SIZE 64
 #define HID_RESPONSE_SIZE 64
 
@@ -22,29 +24,29 @@ namespace Pin {
         GP27_ADC1 = 27,
 
         // UART0
-        GP0_UART0_TX = 0,
-        GP1_UART0_RX = 1,
+        GP0_UART0_TX = U2IF_UART0_TX,
+        GP1_UART0_RX = U2IF_UART0_RX,
 
         // SPI0
-        GP18_SPI0_CK = 18,
-        GP19_SPI0_MOSI = 19,
-        GP16_SPI0_MISO = 16,
+        GP18_SPI0_CK = U2IF_SPI0_CK,
+        GP19_SPI0_MOSI = U2IF_SPI0_MOSI,
+        GP16_SPI0_MISO = U2IF_SPI0_MISO,
         GP17_SPI0_CS1 = 17,
         GP20_SPI0_CS2 = 20,
 
         // SPI1
-        GP10_SPI1_CK = 10,
-        GP11_SPI1_MOSI = 11,
-        GP12_SPI1_MISO = 12,
+        GP10_SPI1_CK = U2IF_SPI1_CK,
+        GP11_SPI1_MOSI = U2IF_SPI1_MOSI,
+        GP12_SPI1_MISO = U2IF_SPI1_MISO,
         GP13_SPI1_CS1 = 13,
 
         // I2C0
-        GP4_I2C0_SDA = 4,
-        GP5_I2C0_SCL = 5,
+        GP4_I2C0_SDA = U2IF_I2C0_SDA,
+        GP5_I2C0_SCL = U2IF_I2C0_SCL,
 
         // I2C1
-        GP14_I2C1_SDA = 14,
-        GP15_I2C1_SCL = 15
+        GP14_I2C1_SDA = U2IF_I2C1_SDA,
+        GP15_I2C1_SCL = U2IF_I2C1_SCL
     };
 }
 

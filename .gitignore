@@ -1,4 +1,3 @@
-firmware/pico-sdk
 firmware/source/build/
 firmware/source/config.h
 examples/external/ressources/sound/music.wav

@@ -25,7 +25,7 @@ struct Slice {
             return gpioChannelB = gpio;
     }
 
-    inline bool unsetGpioChannel(uint channel) {
+    inline void unsetGpioChannel(uint channel) {
         if(channel == 0)
             gpioChannelA = -1;
         else
@@ -60,4 +60,3 @@ protected:
 
 
 #endif
-

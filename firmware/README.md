@@ -23,11 +23,7 @@ Then reboot or reload udev rules:
 
 ## Build firmware
 
-In u2if/firmware/, clone pico-sdk (v1.1.0):
- - git clone https://github.com/raspberrypi/pico-sdk.git
- - cd pico-sdk
- - git reset --hard 1.1.0
- - git submodule update --init
+ - git submodule update --init   # Bring in pico-sdk submodule
 
 In u2if/firmware/source directory:
  - mkdir build
@@ -36,4 +32,3 @@ In u2if/firmware/source directory:
  - make
 
 The firmware to upload to Pico is u2if/firmware/source/build/u2if.uf2
-

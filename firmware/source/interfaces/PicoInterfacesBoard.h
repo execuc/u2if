@@ -1,54 +1,55 @@
 #ifndef _PICO_INTERFACES_BOARD_H
 #define _PICO_INTERFACES_BOARD_H
 
-#include "pins.h"
+//#include "pins.h"
+#include "board_config.h"
 
 #define HID_CMD_SIZE 64
 #define HID_RESPONSE_SIZE 64
 
-namespace Pin {
-    enum ID {
-        // GPIO
-        GP_2 = 2,
-        GP_3 = 3,
-        GP_6 = 6,
-        GP_9 = 9,
-        GP_7 = 7,
-        GP_8 = 8,
-        GP_21 = 21,
-        GP_22 = 22,
-        GP_28 = 28,
+// namespace Pin {
+//     enum ID {
+//         // GPIO
+//         GP_2 = 2,
+//         GP_3 = 3,
+//         GP_6 = 6,
+//         GP_9 = 9,
+//         GP_7 = 7,
+//         GP_8 = 8,
+//         GP_21 = 21,
+//         GP_22 = 22,
+//         GP_28 = 28,
 
-        // Analog
-        GP26_ADC0 = 26,
-        GP27_ADC1 = 27,
+//         // Analog
+//         GP26_ADC0 = 26,
+//         GP27_ADC1 = 27,
 
-        // UART0
-        GP0_UART0_TX = U2IF_UART0_TX,
-        GP1_UART0_RX = U2IF_UART0_RX,
+//         // UART0
+//         GP0_UART0_TX = U2IF_UART0_TX,
+//         GP1_UART0_RX = U2IF_UART0_RX,
 
-        // SPI0
-        GP18_SPI0_CK = U2IF_SPI0_CK,
-        GP19_SPI0_MOSI = U2IF_SPI0_MOSI,
-        GP16_SPI0_MISO = U2IF_SPI0_MISO,
-        GP17_SPI0_CS1 = 17,
-        GP20_SPI0_CS2 = 20,
+//         // SPI0
+//         GP18_SPI0_CK = U2IF_SPI0_CK,
+//         GP19_SPI0_MOSI = U2IF_SPI0_MOSI,
+//         GP16_SPI0_MISO = U2IF_SPI0_MISO,
+//         GP17_SPI0_CS1 = 17,
+//         GP20_SPI0_CS2 = 20,
 
-        // SPI1
-        GP10_SPI1_CK = U2IF_SPI1_CK,
-        GP11_SPI1_MOSI = U2IF_SPI1_MOSI,
-        GP12_SPI1_MISO = U2IF_SPI1_MISO,
-        GP13_SPI1_CS1 = 13,
+//         // SPI1
+//         GP10_SPI1_CK = U2IF_SPI1_CK,
+//         GP11_SPI1_MOSI = U2IF_SPI1_MOSI,
+//         GP12_SPI1_MISO = U2IF_SPI1_MISO,
+//         GP13_SPI1_CS1 = 13,
 
-        // I2C0
-        GP4_I2C0_SDA = U2IF_I2C0_SDA,
-        GP5_I2C0_SCL = U2IF_I2C0_SCL,
+//         // I2C0
+//         GP4_I2C0_SDA = U2IF_I2C0_SDA,
+//         GP5_I2C0_SCL = U2IF_I2C0_SCL,
 
-        // I2C1
-        GP14_I2C1_SDA = U2IF_I2C1_SDA,
-        GP15_I2C1_SCL = U2IF_I2C1_SCL
-    };
-}
+//         // I2C1
+//         GP14_I2C1_SDA = U2IF_I2C1_SDA,
+//         GP15_I2C1_SCL = U2IF_I2C1_SCL
+//     };
+// }
 
 enum CmdStatus {
     OK = 0x01,
@@ -111,7 +112,7 @@ namespace Report {
         // | ADC_GET_VALUE | GP NUMBER | => | ADC_GET_VALUE | CmdStatus::OK|NOK | GP NUMBER | VALUE[2] L.Endian (12bits=4096) |
         ADC_GET_VALUE = 0x41,
 
-        // UART
+        // UART0
         // | UART0_INIT | MODE (NOT USED) | BAUDRATE[4] L.Endian |
         UART0_INIT = 0x50,
         // | UART0_DEINIT |
@@ -120,6 +121,13 @@ namespace Report {
         UART0_WRITE = 0x52,
         // | UART0_READ | => First | UART_READ_FROM_UART | CmdStatus::OK | NB_BYTES[1] | PAYLOAD |
         UART0_READ = 0x53,
+
+        // UART1: 0xCX
+        UART0_UART1_OFFSET = 0x70,
+        UART1_INIT = UART0_INIT + UART0_UART1_OFFSET,
+        UART1_DEINIT = UART0_DEINIT + UART0_UART1_OFFSET,
+        UART1_WRITE = UART0_WRITE + UART0_UART1_OFFSET,
+        UART1_READ = UART0_READ + UART0_UART1_OFFSET,
 
         // SPI0
         // | SPI0_INIT | MODE (To implement) | BAUDRATE[4] L.Endian |
@@ -133,12 +141,13 @@ namespace Report {
         // | SPI0_WRITE_FROM_UART | NB_BYTES[4] L.Endian | => First | SPI0_WRITE_FROM_UART | CmdStatus::OK | and after the CDC stream | SPI0_WRITE_FROM_UART | CmdStatus::OK |
         SPI0_WRITE_FROM_UART = 0x64,
 
-        // SPI1
-        SPI1_INIT = SPI0_INIT + 0x10,
-        SPI1_DEINIT = SPI0_DEINIT + 0x10,
-        SPI1_WRITE = SPI0_WRITE + 0x10,
-        SPI1_READ = SPI0_READ + 0x10,
-        SPI1_WRITE_FROM_UART = SPI0_WRITE_FROM_UART + 0x10,
+        // SPI1: 0x7X
+        SPI0_SPI1_OFFSET = 0x10,
+        SPI1_INIT = SPI0_INIT + SPI0_SPI1_OFFSET,
+        SPI1_DEINIT = SPI0_DEINIT + SPI0_SPI1_OFFSET,
+        SPI1_WRITE = SPI0_WRITE + SPI0_SPI1_OFFSET,
+        SPI1_READ = SPI0_READ + SPI0_SPI1_OFFSET,
+        SPI1_WRITE_FROM_UART = SPI0_WRITE_FROM_UART + SPI0_SPI1_OFFSET,
 
         // I2C0
         // | I2C0_INIT | PULLUP(1=True) | BAUDRATE[4] L.Endian |
@@ -152,12 +161,13 @@ namespace Report {
         // | I2C0_WRITE_FROM_UART | ADDR | NB_BYTES[4] L.Endian | => First | I2C0_WRITE_FROM_UART | CmdStatus::OK | and after the CDC stream | I2C0_WRITE_FROM_UART | CmdStatus::OK |
         I2C0_WRITE_FROM_UART = 0x84,
 
-        // I2C1
-        I2C1_INIT = I2C0_INIT + 0x10,
-        I2C1_DEINIT = I2C0_DEINIT + 0x10,
-        I2C1_WRITE = I2C0_WRITE + 0x10,
-        I2C1_READ = I2C0_READ + 0x10,
-        I2C1_WRITE_FROM_UART = I2C0_WRITE_FROM_UART + 0x10,
+        // I2C1: 0x9X
+        I2C0_I2C1_OFFSET = 0x10,
+        I2C1_INIT = I2C0_INIT + I2C0_I2C1_OFFSET,
+        I2C1_DEINIT = I2C0_DEINIT + I2C0_I2C1_OFFSET,
+        I2C1_WRITE = I2C0_WRITE + I2C0_I2C1_OFFSET,
+        I2C1_READ = I2C0_READ + I2C0_I2C1_OFFSET,
+        I2C1_WRITE_FROM_UART = I2C0_WRITE_FROM_UART + I2C0_I2C1_OFFSET,
 
         // WS2812B (LED)
         // | WS2812B_INIT |

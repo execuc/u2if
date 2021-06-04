@@ -88,8 +88,8 @@ CmdStatus I2s::init(uint8_t const *cmd) {
     }
     resetBuffers();
     _offsetProgram = pio_add_program(_pio, &audio_i2s_program);
-    const uint data_pin = 12;
-    const uint clock_pin_base = 10;
+    const uint data_pin = U2IF_I2S_SD;
+    const uint clock_pin_base = U2IF_I2S_CLK;
     audio_i2s_program_init(_pio, _sm, _offsetProgram, data_pin, clock_pin_base);
     update_pio_frequency(10000); // set default speed ?
     pio_sm_set_enabled(_pio, _sm, true);

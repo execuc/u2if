@@ -1,0 +1,220 @@
+#ifndef _U2IF_BOARD_CONFIG_H
+#define _U2IF_BOARD_CONFIG_H
+
+#define PROJECT_NAME "@PROJECT_NAME@"
+#define PROJECT_VER  "@PROJECT_VERSION@"
+#define PROJECT_VER_MAJOR @PROJECT_VERSION_MAJOR@
+#define PROJECT_VER_MINOR @PROJECT_VERSION_MINOR@
+#define PROJECT_VER_PATCH @PROJECT_VERSION_PATCH@
+
+
+#define PICO            1
+#define FEATHER         2
+#define ITSYBITSY       3
+#define QTPY            4
+#define QT2040_TRINKEY  5
+
+#define BOARD ${BOARD}
+
+#define GPIO_ENABLED    1
+#define ADC_ENABLED     ${ADC_ENABLED}
+#define PWM_ENABLED     ${PWM_ENABLED}
+#define I2S_ALLOW       ${I2S_ALLOW}          // depends of the selected board, use many many ram
+#define WS2812_ENABLED  ${WS2812_ENABLED}
+#define WS2812_SIZE     ${WS2812_SIZE}      // 0 to disable WS2812B interface
+
+
+//---------------------------------------------------------
+// Feather 
+//---------------------------------------------------------
+#if BOARD == FEATHER
+  // I2C0
+  #define I2C0_ENABLED 1
+  #define U2IF_I2C0_SDA 4
+  #define U2IF_I2C0_SCL 5
+  // I2C1
+  #define I2C1_ENABLED 1
+  #define U2IF_I2C1_SDA 2
+  #define U2IF_I2C1_SCL 3
+  // SPI0
+  #define SPI0_ENABLED 1
+  #define U2IF_SPI0_CK 18
+  #define U2IF_SPI0_MOSI 19
+  #define U2IF_SPI0_MISO 20
+  // SPI1
+  #define SPI1_ENABLED 1
+  #define U2IF_SPI1_CK 10
+  #define U2IF_SPI1_MOSI 11
+  #define U2IF_SPI1_MISO 12
+  // UART0
+  #define UART0_ENABLED 1
+  #define U2IF_UART0_TX 0
+  #define U2IF_UART0_RX 1
+
+//---------------------------------------------------------
+// QT Py
+//---------------------------------------------------------
+#elif BOARD == QTPY
+  // I2C0
+  #define I2C0_ENABLED 1
+  #define U2IF_I2C0_SDA 24
+  #define U2IF_I2C0_SCL 25
+  // I2C1
+  #define I2C1_ENABLED 1
+  #define U2IF_I2C1_SDA 22
+  #define U2IF_I2C1_SCL 23
+  // SPI0
+  #define SPI0_ENABLED 1
+  #define U2IF_SPI0_CK 6
+  #define U2IF_SPI0_MOSI 3
+  #define U2IF_SPI0_MISO 4
+  // // SPI1: not routed
+  // #define U2IF_SPI1_CK 10
+  // #define U2IF_SPI1_MOSI 11
+  // #define U2IF_SPI1_MISO 12
+  // UART1
+  #define UART1_ENABLED 1
+  #define U2IF_UART1_TX 20
+  #define U2IF_UART1_RX 5
+
+//---------------------------------------------------------
+// Itsy Bitsy
+//---------------------------------------------------------
+#elif BOARD == ITSYBITSY
+  // // I2C0: not routed
+  // #define U2IF_I2C0_SDA 4
+  // #define U2IF_I2C0_SCL 5
+  // I2C1
+  #define I2C1_ENABLED 1
+  #define U2IF_I2C1_SDA 2
+  #define U2IF_I2C1_SCL 3
+  // SPI0
+  #define SPI0_ENABLED 1
+  #define U2IF_SPI0_CK 18
+  #define U2IF_SPI0_MOSI 19
+  #define U2IF_SPI0_MISO 20
+  // SPI1
+  #define SPI1_ENABLED 1
+  #define U2IF_SPI1_CK 10
+  #define U2IF_SPI1_MOSI 11
+  #define U2IF_SPI1_MISO 12
+  // UART0
+  #define UART0_ENABLED 1
+  #define U2IF_UART0_TX 0
+  #define U2IF_UART0_RX 1
+
+//---------------------------------------------------------
+// QT2040 Trinkey
+//---------------------------------------------------------
+#elif BOARD == QT2040_TRINKEY
+  // I2C0
+  #define I2C0_ENABLED 1
+  #define U2IF_I2C0_SDA 16
+  #define U2IF_I2C0_SCL 17
+  // I2C1
+  #define I2C1_ENABLED 1
+  #define U2IF_I2C1_SDA 2
+  #define U2IF_I2C1_SCL 3
+  // SPI0
+  #define SPI0_ENABLED 1
+  #define U2IF_SPI0_CK 6
+  #define U2IF_SPI0_MOSI 7
+  #define U2IF_SPI0_MISO 8
+  // SPI1
+  #define SPI1_ENABLED 1
+  #define U2IF_SPI1_CK 10
+  #define U2IF_SPI1_MOSI 11
+  #define U2IF_SPI1_MISO 12
+  // UART0
+  #define UART0_ENABLED 1
+  #define U2IF_UART0_TX 1
+  #define U2IF_UART0_RX 2
+
+//---------------------------------------------------------
+// Pico (default)
+//---------------------------------------------------------
+#elif BOARD == PICO
+  // I2C0
+  #define I2C0_ENABLED 1
+  #define U2IF_I2C0_SDA 4
+  #define U2IF_I2C0_SCL 5
+  // I2C1
+  #define I2C1_ENABLED 1
+  #define U2IF_I2C1_SDA 14
+  #define U2IF_I2C1_SCL 15
+  // SPI0
+  #define SPI0_ENABLED 1
+  #define U2IF_SPI0_CK 18
+  #define U2IF_SPI0_MOSI 19
+  #define U2IF_SPI0_MISO 16
+  // SPI1
+  #define SPI1_ENABLED 1
+  #define U2IF_SPI1_CK 10
+  #define U2IF_SPI1_MOSI 11
+  #define U2IF_SPI1_MISO 12
+  // UART0
+  #define UART0_ENABLED 1
+  #define U2IF_UART0_TX 0
+  #define U2IF_UART0_RX 1
+  // UART1
+  #define UART1_ENABLED 1
+  #define U2IF_UART1_TX 8
+  #define U2IF_UART1_RX 9
+  // I2S
+  #define I2S_ENABLED  I2S_ALLOW
+  #define U2IF_I2S_CLK 10
+  #define U2IF_I2S_WS  11
+  #define U2IF_I2S_SD  12
+#else
+  #warning "Please define board type"
+#endif
+
+// Disable not used interfaces and their pins
+#ifndef I2C0_ENABLED
+#define I2C0_ENABLED    0
+#define U2IF_I2C0_SDA   99
+#define U2IF_I2C0_SCL   99
+#endif
+
+#ifndef I2C1_ENABLED
+#define I2C1_ENABLED    0
+#define U2IF_I2C1_SDA   99
+#define U2IF_I2C1_SCL   99
+#endif
+
+#ifndef SPI0_ENABLED
+#define SPI0_ENABLED    0
+#define U2IF_SPI0_CK    99
+#define U2IF_SPI0_MOSI  99
+#define U2IF_SPI0_MISO  99
+#endif
+
+#ifndef SPI1_ENABLED
+#define SPI1_ENABLED    0
+#define U2IF_SPI1_CK    99
+#define U2IF_SPI1_MOSI  99
+#define U2IF_SPI1_MISO  99
+#endif
+
+#ifndef UART0_ENABLED
+#define UART0_ENABLED   0
+#define U2IF_UART0_TX   99
+#define U2IF_UART0_RX   99
+#endif
+
+#ifndef UART1_ENABLED
+#define UART1_ENABLED   0
+#define U2IF_UART1_TX   99
+#define U2IF_UART1_RX   99
+#endif
+
+#ifndef I2S_ENABLED
+#define I2S_ENABLED   0
+#define U2IF_I2S_CLK 99
+#define U2IF_I2S_WS  99
+#define U2IF_I2S_SD  99
+#endif
+
+
+
+#endif // _U2IF_BOARD_CONFIG_H

@@ -14,10 +14,10 @@ def irq_callback(pin, event=None):
 
 
 # Configure first switch
-switch = Pin(u2if.GP_9, Pin.IN, pull=Pin.PULL_UP)
+switch = Pin(u2if.GP9, Pin.IN, pull=Pin.PULL_UP)
 switch.irq(handler=irq_callback, trigger=Pin.IRQ_RISING | Pin.IRQ_FALLING)
 # Configure second switch with debouncer
-switch_debounced = Pin(u2if.GP_8, Pin.IN, pull=Pin.PULL_UP)
+switch_debounced = Pin(u2if.GP8, Pin.IN, pull=Pin.PULL_UP)
 switch_debounced.irq(handler=irq_callback, trigger=Pin.IRQ_FALLING, debounce=True)
 
 while True:

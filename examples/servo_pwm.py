@@ -1,12 +1,12 @@
 import time
 from machine import u2if, Pin, PWM
 
-# Connect a servo on GP_6
+# Connect a servo on GP6
 
 MIN_DUTY_MS = 1000
 MAX_DUTY_MS = 2000
 
-servo_pwm = PWM(Pin(u2if.GP_6))
+servo_pwm = PWM(Pin(u2if.GP6))
 servo_pwm.freq(50)
 
 duty = MIN_DUTY_MS

@@ -29,6 +29,7 @@
 
 #include "tusb.h"
 #include "pico/unique_id.h"
+#include "board_config.h"
 
 /* A combination of interfaces must have a unique product id, since PC will save device driver after the first plug.
  * Same VID/PID with different interface e.g MSC (first), then CDC (later) will possibly cause system error on PC.
@@ -38,32 +39,34 @@
  */
 #define _PID_MAP(itf, n)  ( (CFG_TUD_##itf) << (n) )
 
-#if defined(BOARD_FEATHER)
+#if BOARD == FEATHER
   #define USB_MFG "Adafruit"
   #define USB_PRD "Feather RP2040 U2IF"
   #define USB_VID 0x239A
   #define USB_PID 0x00F1
-#elif defined(BOARD_ITSYBITSY)
+#elif BOARD == ITSYBITSY
   #define USB_MFG "Adafruit"
   #define USB_PRD "ItsyBitsy RP2040 U2IF"
   #define USB_VID 0x239A
   #define USB_PID 0x00FD
-#elif defined(BOARD_QTPY)
+#elif BOARD == QTPY
   #define USB_MFG "Adafruit"
   #define USB_PRD "QT Py RP2040 U2IF"
   #define USB_VID 0x239A
   #define USB_PID 0x00F7
-#elif defined(BOARD_QT2040_TRINKEY)
+#elif BOARD == QT2040_TRINKEY
   #define USB_MFG "Adafruit"
   #define USB_PRD "QT2040 Trinkey U2IF"
   #define USB_VID 0x239A
   #define USB_PID 0x0109
-#else
+#elif BOARD == PICO
   #define USB_MFG "Pico"
   #define USB_PRD "U2IF"
   #define USB_VID 0xCAFE
   #define USB_PID           (0x4000 | _PID_MAP(CDC, 0) | _PID_MAP(MSC, 1) | _PID_MAP(HID, 2) | \
                             _PID_MAP(MIDI, 3) | _PID_MAP(VENDOR, 4) )
+#else
+  #warning "Please define board type"
 #endif
 
 //--------------------------------------------------------------------+

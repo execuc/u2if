@@ -7,21 +7,21 @@ from machine import Pin, u2if
 # S1, S2 and Key are pulled-high.
 # GND: GND
 # Vcc : 3.3v
-# S1: GP_21
-# S2: GP_22
-# Key: GP_28
+# S1: GP21
+# S2: GP22
+# Key: GP28
 
 
 def irq_callback(pin, event=None):
-    if pin == u2if.GP_28 and event == Pin.IRQ_FALLING:
+    if pin == u2if.GP28 and event == Pin.IRQ_FALLING:
         print("Key pressed")
 
 
-s1 = Pin(u2if.GP_21, Pin.IN)
-s2 = Pin(u2if.GP_22, Pin.IN)
+s1 = Pin(u2if.GP21, Pin.IN)
+s2 = Pin(u2if.GP22, Pin.IN)
 
 encoder = Encoder(s1, s2)
-key = Pin(u2if.GP_28, Pin.IN)
+key = Pin(u2if.GP28, Pin.IN)
 key.irq(handler=irq_callback, trigger=Pin.IRQ_FALLING, debounce=True)  # software debounced in u2if
 
 last_value = encoder.read()

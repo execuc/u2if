@@ -5,9 +5,9 @@
 SPIMaster::SPIMaster(uint8_t spiIndex, uint streamBufferSize = 512)
     : StreamedInterface(streamBufferSize),
       _spiInst(spiIndex == 0 ? spi0 : spi1),
-      _clkGP(spiIndex == 0 ? Pin::ID::GP18_SPI0_CK : Pin::ID::GP10_SPI1_CK),
-      _mosiGP(spiIndex == 0 ? Pin::ID::GP19_SPI0_MOSI : Pin::ID::GP11_SPI1_MOSI),
-      _misoGP(spiIndex == 0 ? Pin::ID::GP16_SPI0_MISO : Pin::ID::GP12_SPI1_MISO){
+      _clkGP(spiIndex == 0 ? U2IF_SPI0_CK : U2IF_SPI1_CK),
+      _mosiGP(spiIndex == 0 ? U2IF_SPI0_MOSI : U2IF_SPI1_MOSI),
+      _misoGP(spiIndex == 0 ? U2IF_SPI0_MISO : U2IF_SPI1_MISO){
 
 }
 
@@ -24,15 +24,15 @@ CmdStatus SPIMaster::process(uint8_t const *cmd, uint8_t response[64]) {
     CmdStatus status = CmdStatus::NOT_CONCERNED;
     const uint spiIndex = getInstIndex();
 
-    if(cmd[0] == (Report::ID::SPI0_INIT + spiIndex * 0x10)) {
+    if(cmd[0] == (Report::ID::SPI0_INIT + spiIndex * Report::ID::SPI0_SPI1_OFFSET)) {
         status = init(cmd);
-    } else if(cmd[0] == (Report::ID::SPI0_DEINIT + spiIndex * 0x10) ) {
+    } else if(cmd[0] == (Report::ID::SPI0_DEINIT + spiIndex * Report::ID::SPI0_SPI1_OFFSET) ) {
         status = deInit();
-    } else if(cmd[0] == (Report::ID::SPI0_WRITE + spiIndex * 0x10)) {
+    } else if(cmd[0] == (Report::ID::SPI0_WRITE + spiIndex * Report::ID::SPI0_SPI1_OFFSET)) {
         status = write(cmd);
-    } else if(cmd[0] == (Report::ID::SPI0_READ + spiIndex * 0x10)) {
+    } else if(cmd[0] == (Report::ID::SPI0_READ + spiIndex * Report::ID::SPI0_SPI1_OFFSET)) {
         status = read(cmd, response);
-    } else if(cmd[0] == (Report::ID::SPI0_WRITE_FROM_UART + spiIndex * 0x10)) {
+    } else if(cmd[0] == (Report::ID::SPI0_WRITE_FROM_UART + spiIndex * Report::ID::SPI0_SPI1_OFFSET)) {
         status = writeFromUart(cmd);
     }
 

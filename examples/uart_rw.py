@@ -1,8 +1,8 @@
 import time
 from machine import UART
 
-# Connect a USB to UART (CP2102, FT232, ...) to PICO UART (GP_0, GP_1) and open terminal on it (putty, ...)
-uart = UART()
+# Connect a USB to UART (CP2102, FT232, ...) to PICO UART0 (GP_0, GP_1) and open terminal on it (putty, ...)
+uart = UART(0)
 uart.init(115200)
 
 fable = bytearray("""\r\nLa Cigale, ayant chanté\r

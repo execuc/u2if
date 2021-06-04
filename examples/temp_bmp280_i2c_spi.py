@@ -20,11 +20,11 @@ from machine import I2C, SPI, u2if, Pin
 # GND: GND
 # SCL: SPI0_CLK
 # SDA: SPI0_MOSI (=SDI)
-# CSB: SPI0_CS1
+# CSB: GP17 SPI0_CS1
 # SDO: SPI0_MISO
 spi = SPI(spi_index=0)
 spi.init(baudrate=10000000)
-cs = Pin(u2if.SPI0_CS1, Pin.OUT, value=Pin.HIGH)
+cs = Pin(u2if.GP17, Pin.OUT, value=Pin.HIGH)
 bmp280 = Adafruit_BMP280_SPI(spi, cs)
 
 

@@ -27,7 +27,7 @@ def image_to_array(im, background_color=(0,0,0)):
     return array
 
 
-leds = WS2812B(u2if.GP_21)
+leds = WS2812B(u2if.GP21)
 background_color = (0, 0x20, 0)
 for i in range(10):
     leds.write(image_to_array(im1, background_color))

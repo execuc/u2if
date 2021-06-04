@@ -9,29 +9,29 @@ from machine import I2C, Pin, u2if
 
 # Demo of the VL53L0X distance sensor with interrupt.
 # There are two mode:
-# * Manual: user set low GP_9 (button with pull up) => trigger a measure
+# * Manual: user set low GP9 (button with pull up) => trigger a measure
 # * Auto: read measure as fast as it can.
-# Module interrupt has to be wired to GP_13 and button if needed, to GP_9
+# Module interrupt has to be wired to GP13 and button if needed, to GP9
 
-mode_auto = False   # Set False to manual trigger with GP_9
+mode_auto = False   # Set False to manual trigger with GP9
 start_measure = True
 
 
 def irq_callback(pin, event=None):
     global start_measure
     is_falling = event & Pin.IRQ_FALLING
-    if pin == u2if.GP13_SPI1_CS1 and is_falling:
+    if pin == u2if.GP13 and is_falling:
         print("Range: {0}mm".format(vl53.read_measure()))
         start_measure = mode_auto
-    elif pin == u2if.GP_9 and is_falling:
+    elif pin == u2if.GP9 and is_falling:
         start_measure = True
 
 
 # Initialize I2C bus and sensor. Use first I2C port.
 i2c = I2C(i2c_index=0, frequency=400000) # , pullup=True
-int_pin = Pin(u2if.GP13_SPI1_CS1, Pin.IN)
+int_pin = Pin(u2if.GP13, Pin.IN)
 int_pin.irq(handler=irq_callback, trigger=Pin.IRQ_RISING | Pin.IRQ_FALLING)
-button_pin = Pin(u2if.GP_9, Pin.IN)
+button_pin = Pin(u2if.GP9, Pin.IN)
 button_pin.irq(handler=irq_callback, trigger=Pin.IRQ_FALLING, debounce=True)
 vl53 = adafruit_vl53l0x.VL53L0X(i2c)
 

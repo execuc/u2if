@@ -4,8 +4,8 @@
 I2CMaster::I2CMaster(uint8_t i2cIndex, uint streamBufferSize = 512)
     : StreamedInterface(streamBufferSize),
       _i2cInst(i2cIndex == 0 ? i2c0 : i2c1),
-      _sdaGP(i2cIndex == 0 ? Pin::ID::GP4_I2C0_SDA : Pin::ID::GP14_I2C1_SDA),
-      _sclGP(i2cIndex == 0 ? Pin::ID::GP5_I2C0_SCL : Pin::ID::GP15_I2C1_SCL),
+      _sdaGP(i2cIndex == 0 ? U2IF_I2C0_SDA : U2IF_I2C1_SDA),
+      _sclGP(i2cIndex == 0 ? U2IF_I2C0_SCL : U2IF_I2C1_SCL),
       _currentStreamAddress(0) {
 
 }
@@ -22,15 +22,15 @@ CmdStatus I2CMaster::process(uint8_t const *cmd, uint8_t response[64]) {
     CmdStatus status = CmdStatus::NOT_CONCERNED;
     const uint i2cIndex = getInstIndex();
 
-    if(cmd[0] == (Report::ID::I2C0_INIT + i2cIndex * 0x10)) {
+    if(cmd[0] == (Report::ID::I2C0_INIT + i2cIndex * Report::ID::I2C0_I2C1_OFFSET)) {
         status = init(cmd);
-    } else if(cmd[0] == (Report::ID::I2C0_DEINIT + i2cIndex * 0x10) ) {
+    } else if(cmd[0] == (Report::ID::I2C0_DEINIT + i2cIndex * Report::ID::I2C0_I2C1_OFFSET) ) {
         status = deInit();
-    } else if(cmd[0] == (Report::ID::I2C0_WRITE + i2cIndex * 0x10)) {
+    } else if(cmd[0] == (Report::ID::I2C0_WRITE + i2cIndex * Report::ID::I2C0_I2C1_OFFSET)) {
         status = write(cmd);
-    } else if(cmd[0] == (Report::ID::I2C0_READ + i2cIndex * 0x10)) {
+    } else if(cmd[0] == (Report::ID::I2C0_READ + i2cIndex * Report::ID::I2C0_I2C1_OFFSET)) {
         status = read(cmd, response);
-    } else if(cmd[0] == (Report::ID::I2C0_WRITE_FROM_UART + i2cIndex * 0x10)) {
+    } else if(cmd[0] == (Report::ID::I2C0_WRITE_FROM_UART + i2cIndex * Report::ID::I2C0_I2C1_OFFSET)) {
         status = writeFromUart(cmd);
     }
 

@@ -1,7 +1,7 @@
 # u2if project
 
 u2if(USB to interfaces) is an attempt to implement some of the MicroPython "machine" module functionalities on a computer.
-The goal is to be able to communicate with breakout boards (sensors, lcd...) simply from a python program on x86 machine. It uses a Raspberry PICO microcontroller to make the interface between the computer (USB) and peripherals/protocols.
+The goal is to be able to communicate with breakout boards (sensors, lcd...) simply from a python program on x86 machine. It uses a Raspberry PICO (or other RP2040 based board) to make the interface between the computer (USB) and peripherals/protocols.
 
 <p align="center"><img src="images/principle.png"/></p>
 
@@ -24,11 +24,11 @@ To work in Linux in non-root, an udev rules has to be added (See [Firmware readm
 
 
 ## Why this project ?
-When I want to retrieve values from a sensor or even to play with a led or a button from the PC, I make an arduino program that communicate to the PC via the serial port. That umplies to define a serial "protocol" between the PC and the arduino and it is not necessarily reusable because it is specific.
+When I want to retrieve values from a sensor or even to play with a led or a button from the PC, I make an arduino program that communicate to the PC via the serial port. That umplies to define a serial "protocol" between the PC and the arduino and it is not necessarily reusable because it is specific. I find it interesting to implement a majority of the functionalities of the MicroPython machine module and add other protocols.
 
-Solutions already exist, for example [Blinka](https://github.com/adafruit/Adafruit_Blinka) from Adafruit via the FT2232H in CircuitPython or pyftdi in Python with the same IC.
+Solutions already exist, for example [Adafruit Blinka](https://github.com/adafruit/Adafruit_Blinka) from Adafruit via the FT2232H in CircuitPython or pyftdi in Python with the same IC.
+Note: now, firmware part can be also used with Adafruit Blinka ! 
 
-Nevertheless I find it interesting to implement a majority of the functionalities of the machine module and add other protocols.
 
 ## Implemented Interfaces
 The following features are coded:
@@ -55,7 +55,7 @@ But it also contains the following projects:
 
 ## How to use it
 
-### Upload PICO firmware
+### Upload firmware
 See [Firmware README](firmware/README.md)
 
 ### Install u2if python package
@@ -87,10 +87,82 @@ There is no documentation but [examples](examples/) can help to use this library
  * ...
 
 
-## u2if pinout
+## u2if boards/pinout
 
-For simplicity, the pins of the SPI, I2C and UART devices have been fixed. If a peripheral is not used, its pins can be used as a classic I/O.
+For simplicity, the pins of the SPI, I2C and UART devices have been fixed. If a peripheral is not used, its pins can be used as a classic I/O. Here are the compatibles boards.
+
+### PICO
+<details>
 <p align="center"><img src="images/u2if_pinout.png"/></p>
+
+Implemented interfaces:
+ - GPIO
+ - ADC
+ - PWM
+ - UART0 & UART1
+ - I2C0 & I2C1
+ - SPI0 & SPI1
+ - WS2812B
+ - I2S
+
+</details>
+
+### Adafruit Feather RP2040
+<details>
+
+Implemented interfaces:
+ - GPIO
+ - ADC
+ - PWM
+ - UART0
+ - I2C0 & I2C1
+ - SPI0 & SPI1
+ - WS2812B
+
+</details>
+
+### Adafruit Qt Py RP2040
+<details>
+
+Implemented interfaces:
+ - GPIO
+ - ADC
+ - PWM
+ - UART1
+ - I2C0 & I2C1
+ - SPI0
+ - WS2812B
+
+</details>
+
+### Adafruit ItsyBitsy RP2040
+<details>
+
+Implemented interfaces:
+ - GPIO
+ - ADC
+ - PWM
+ - UART0
+ - I2C1
+ - SPI0 & SPI1
+ - WS2812B
+
+</details>
+
+### Adafruit Trinkey QT2040
+<details>
+
+Implemented interfaces:
+ - GPIO
+ - ADC
+ - PWM
+ - UART0
+ - I2C0 & I2C1
+ - SPI0 & SPI1
+ - WS2812B
+
+</details>
+
 
 ## Troubleshooting
 ### Import error using MicroPython module

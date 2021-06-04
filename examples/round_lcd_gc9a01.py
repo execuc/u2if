@@ -19,10 +19,10 @@ try:
     spi = SPI(spi_index=0)
     spi.init(baudrate=1000000)
 
-    rst = Pin(u2if.GP_6)
-    dc = Pin(u2if.GP_7)
-    cs = Pin(u2if.GP_8)
-    bl = Pin(u2if.GP_9)
+    rst = Pin(u2if.GP6)
+    dc = Pin(u2if.GP7)
+    cs = Pin(u2if.GP8)
+    bl = Pin(u2if.GP9)
 
     disp = Lcd(spi, dc, rst, cs, bl, bl_freq=1000)
     # Initialize library.

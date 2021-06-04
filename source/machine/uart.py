@@ -5,11 +5,11 @@ from . import u2if_const as report_const
 
 
 class UART:
-    def __init__(self, uart_id=0):
+    def __init__(self, uart_index=0):
         self._initialized = False
-        if uart_id != 0:
+        if uart_index >= 2:
             raise RuntimeError("Uart index error.")
-        self.id = uart_id
+        self.uart_index = uart_index
         self._rx_buffer = queue.Queue()
         self.end_line_char = 10
         self._device = Device()
@@ -18,7 +18,8 @@ class UART:
         self.deinit()
 
     def init(self, baudrate=9600):
-        res = self._device.send_report(bytes([report_const.UART0_INIT, 0x00])
+        report_id = report_const.UART0_INIT if self.uart_index == 0 else report_const.UART1_INIT
+        res = self._device.send_report(bytes([report_id, 0x00])
                                        + baudrate.to_bytes(4, byteorder='little'))
         if res[1] != report_const.OK:
             raise RuntimeError("Uart init error.")
@@ -28,7 +29,8 @@ class UART:
     def deinit(self):
         if not self._initialized:
             return
-        res = self._device.send_report(bytes([report_const.UART0_DEINIT]))
+        report_id = report_const.UART0_DEINIT if self.uart_index == 0 else report_const.UART1_DEINIT
+        res = self._device.send_report(bytes([report_id]))
         if res[1] != report_const.OK:
             raise RuntimeError("Uart deinit error.")
 
@@ -81,7 +83,8 @@ class UART:
         return res_array
 
     def _read_rx_buffer(self):
-        res = self._device.send_report(bytes([report_const.UART0_READ]))
+        report_id = report_const.UART0_READ if self.uart_index == 0 else report_const.UART1_READ
+        res = self._device.send_report(bytes([report_id]))
         if res[1] != report_const.OK:
             raise RuntimeError("Uart read rx buffer error.")
         payload_size = res[2]
@@ -89,12 +92,13 @@ class UART:
             self._rx_buffer.put(res[3+i])
 
     def write(self, buffer):
+        report_id = report_const.UART0_WRITE if self.uart_index == 0 else report_const.UART1_WRITE
         start = 0
         end = len(buffer)
         while (end - start) > 0:
             remain_bytes = end - start
             chunk = min(remain_bytes, report_const.HID_REPORT_SIZE - 3)
-            res = self._device.send_report(bytes([report_const.UART0_WRITE, chunk]) + buffer[start: (start + chunk)])
+            res = self._device.send_report(bytes([report_id, chunk]) + buffer[start: (start + chunk)])
             if res[1] != report_const.OK:
                 raise RuntimeError("Uart write error.")
             start += chunk

@@ -12,7 +12,7 @@
 extern "C" {
 #include "pico/util/queue.h"
 }
-#include "config.h"
+#include "board_config.h"
 #include "ModeActivity.h"
 #include "interfaces/I2cMaster.h"
 #include "interfaces/SpiMaster.h"
@@ -62,11 +62,15 @@ static Pwm pwm;
 static Adc adc;
 #endif
 
-#if UART_ENABLED
-static Uart uart(0);
+#if UART0_ENABLED
+static Uart uart_0(0);
 #endif
 
-#if WS2812_SIZE > 0
+#if UART1_ENABLED
+static Uart uart_1(1);
+#endif
+
+#if WS2812_ENABLED
 static Ws2812b ws2812b(WS2812_SIZE);
 #endif
 
@@ -93,10 +97,13 @@ static std::vector<BaseInterface*> interfaces = { &gpio
 #if ADC_ENABLED
 , &adc
 #endif
-#if UART_ENABLED
-, &uart
+#if UART0_ENABLED
+, &uart_0
 #endif
-#if WS2812_SIZE > 0
+#if UART1_ENABLED
+, &uart_1
+#endif
+#if WS2812_ENABLED
 , &ws2812b
 #endif
 #if I2S_ENABLED

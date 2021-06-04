@@ -1,5 +1,6 @@
+firmware/release
 firmware/source/build/
-firmware/source/config.h
+firmware/source/board_config.h
 examples/external/ressources/sound/music.wav
 *.pio.h
 *.idea

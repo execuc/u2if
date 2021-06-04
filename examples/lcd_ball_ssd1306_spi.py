@@ -11,18 +11,18 @@ from machine import SPI, Pin, u2if
 # Pinout:
 # GND: GND
 # VCC: +3.3v
-# D0: SPI0_CLK
-# D1: SPI0_MOSI
-# RES: GP_8
-# DC: GP_9
-# CS: SPI0_CS1
+# D0: GP18 (SPI0_CLK)
+# D1: GP19 (SPI0_MOSI)
+# RES: GP8
+# DC: GP9
+# CS: GP17 (SPI0_CS1)
 
 spi = SPI(spi_index=0)
 spi.init(baudrate=10000000)
 
-reset = Pin(u2if.GP_8, Pin.OUT, value=Pin.LOW)
-dc = Pin(u2if.GP_9, Pin.OUT, value=Pin.LOW)
-cs = Pin(u2if.SPI0_CS1, Pin.OUT, value=Pin.HIGH)
+reset = Pin(u2if.GP8, Pin.OUT, value=Pin.LOW)
+dc = Pin(u2if.GP9, Pin.OUT, value=Pin.LOW)
+cs = Pin(u2if.GP17, Pin.OUT, value=Pin.HIGH)
 
 oled = SSD1306_SPI(128, 64, spi, dc, reset, cs)
 

@@ -3,8 +3,6 @@
 #include "hardware/watchdog.h"
 #include "pico/unique_id.h"
 
-#include "config.h"
-
 System::System()
  : _needReset(false), count(0){
     setInterfaceState(InterfaceState::INTIALIZED);

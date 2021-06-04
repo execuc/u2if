@@ -1,7 +1,7 @@
 import time
 from machine import u2if, Pin, PWM
 
-led_pwm = PWM(Pin(u2if.GP_22))
+led_pwm = PWM(Pin(u2if.GP22))
 led_pwm.freq(1000)
 
 while True:

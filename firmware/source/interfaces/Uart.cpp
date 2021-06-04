@@ -4,8 +4,10 @@
 
 
 Uart::Uart(uint uartIndex, uint streamBufferSize)
-    : StreamedInterface(streamBufferSize) {
-    _uart = uartIndex == 0 ? uart0 : uart1;
+    : StreamedInterface(streamBufferSize),
+    _uartInst(uartIndex == 0 ? uart0 : uart1),
+    _txGP(uartIndex == 0 ? U2IF_UART0_TX : U2IF_UART1_TX),
+    _rxGP(uartIndex == 0 ? U2IF_UART0_RX : U2IF_UART1_RX) {
     setInterfaceState(InterfaceState::NOT_INITIALIZED);
     queue_init(&_rxUartQueue, 1, RX_REPORT_QUEUE_SIZE);
 }
@@ -14,17 +16,21 @@ Uart::~Uart() {
 
 }
 
+uint8_t Uart::getInstIndex() {
+    return static_cast<uint8_t>(uart_get_index(_uartInst));
+}
 
 CmdStatus Uart::process(uint8_t const *cmd, uint8_t response[64]) {
     CmdStatus status = CmdStatus::NOT_CONCERNED;
+    const uint uartIndex = getInstIndex();
 
-    if(cmd[0] == Report::ID::UART0_INIT) {
+    if(cmd[0] == Report::ID::UART0_INIT + uartIndex * Report::ID::UART0_UART1_OFFSET) {
         status = init(cmd);
-    } else if(cmd[0] == Report::ID::UART0_DEINIT ) {
+    } else if(cmd[0] == Report::ID::UART0_DEINIT + uartIndex * Report::ID::UART0_UART1_OFFSET) {
         status = deInit();
-    } else if(cmd[0] == Report::ID::UART0_READ) {
+    } else if(cmd[0] == Report::ID::UART0_READ + uartIndex * Report::ID::UART0_UART1_OFFSET) {
         status = read(cmd, response);
-    } else if(cmd[0] == Report::ID::UART0_WRITE) {
+    } else if(cmd[0] == Report::ID::UART0_WRITE + uartIndex * Report::ID::UART0_UART1_OFFSET) {
         status = write(cmd);
     }
 
@@ -36,11 +42,11 @@ CmdStatus Uart::task(uint8_t response[64]) {
     (void)response;
     CmdStatus status = CmdStatus::NOT_CONCERNED;
 
-    if(getInterfaceState() == InterfaceState::INTIALIZED && uart_is_readable(_uart)) {
+    if(getInterfaceState() == InterfaceState::INTIALIZED && uart_is_readable(_uartInst)) {
         status = CmdStatus::NOT_FINISHED;
         uint count = std::min(RX_REPORT_QUEUE_SIZE - queue_get_level(&_rxUartQueue), 200u );
-        while(uart_is_readable(_uart) && count>0) {
-            uint8_t c = uart_getc(_uart);
+        while(uart_is_readable(_uartInst) && count>0) {
+            uint8_t c = uart_getc(_uartInst);
             queue_try_add(&_rxUartQueue, &c);
             count--;
         }
@@ -51,9 +57,9 @@ CmdStatus Uart::task(uint8_t response[64]) {
 
 CmdStatus Uart::init(uint8_t const *cmd) {
     uint32_t baudrate = convertBytesToUInt32(&cmd[2]);
-    uart_init(_uart, baudrate);
-    gpio_set_function(Pin::ID::GP0_UART0_TX, GPIO_FUNC_UART);
-    gpio_set_function(Pin::ID::GP1_UART0_RX, GPIO_FUNC_UART);
+    uart_init(_uartInst, baudrate);
+    gpio_set_function(_txGP, GPIO_FUNC_UART);
+    gpio_set_function(_rxGP, GPIO_FUNC_UART);
     setInterfaceState(InterfaceState::INTIALIZED);
     return CmdStatus::OK;
 }
@@ -83,7 +89,7 @@ CmdStatus Uart::read(const uint8_t *report, uint8_t *response){
 CmdStatus Uart::write(const uint8_t *cmd){
     uint8_t payload = cmd[1];
     for(uint8_t it=0; it < payload; it++) {
-        uart_putc_raw(_uart, cmd[2+it]);
+        uart_putc_raw(_uartInst, cmd[2+it]);
     }
     return CmdStatus::OK;
 }

@@ -7,28 +7,40 @@ get_filename_component(PICO_SDK_PATH "${CMAKE_CURRENT_LIST_DIR}/../pico-sdk" ABS
 # note: this must happen before project()
 include(pico_sdk_import.cmake)
 
-project(u2if VERSION "0.3.0")
+project(u2if VERSION "0.4.0")
 
 # initialize the Pico SDK
 pico_sdk_init()
 
-# define board, pico is default
-# BOARD_FEATHER, BOARD_ITSYBITSY, BOARD_QTPY, BOARD_QT2040_TRINKEY
-add_compile_definitions(BOARD_FEATHER)
+
+set(BOARD "PICO" CACHE STRING "BaseName chosen by the user at CMake configure time")
+set_property(CACHE BOARD PROPERTY STRINGS PICO FEATHER ITSYBITSY QTPY QT2040_TRINKEY)
+message(STATUS "Selected board:'${BOARD}'")
+
 # might help for feather?
 #add_compile_definitions(PICO_DEFAULT_BOOT_STAGE2_FILE=${CMAKE_CURRENT_SOURCE_DIR}/../pico-sdk/src/rp2_common/boot_stage2/boot2_generic_03h.S)
 
-# Enable wanted peripherals
-set(I2C0_ENABLE 1)
-set(I2C1_ENABLE 1)
-set(SPI0_ENABLE 1)
-set(SPI1_ENABLE 1)
-set(UART_ENABLE 1)
-set(PWM_ENABLE 1)
-set(ADC_ENABLE 1)
-set(I2S_ENABLE 1)
-set(WS2812_SIZE 1000) #0 to disable
-configure_file("${PROJECT_SOURCE_DIR}/config.h.in" "${PROJECT_SOURCE_DIR}/config.h")
+if (NOT DEFINED ADC_ENABLED)
+        set(ADC_ENABLED 1)
+endif()
+
+if (NOT DEFINED PWM_ENABLED)
+        set(PWM_ENABLED 1)
+endif()
+
+if (NOT DEFINED I2S_ALLOW)
+        set(I2S_ALLOW 0)
+endif()
+
+if (NOT DEFINED WS2812_SIZE)
+        set(WS2812_SIZE 1000)
+endif()
+
+if (NOT DEFINED WS2812_ENABLED)
+        set(WS2812_ENABLED 1)
+endif()
+
+configure_file("${PROJECT_SOURCE_DIR}/board_config.h.in" "${PROJECT_SOURCE_DIR}/board_config.h")
 
 FILE(GLOB InterfaceSources interfaces/*.cpp)
 

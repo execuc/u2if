@@ -81,11 +81,11 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.49497474"
-     inkscape:cx="100.66988"
-     inkscape:cy="530.9684"
+     inkscape:zoom="0.98994948"
+     inkscape:cx="429.25618"
+     inkscape:cy="501.40578"
      inkscape:document-units="mm"
-     inkscape:current-layer="layer1"
+     inkscape:current-layer="g7026"
      showgrid="false"
      inkscape:window-width="1920"
      inkscape:window-height="1016"
@@ -100,7 +100,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -246,13 +246,61 @@
          id="text7022"><tspan
            sodipodi:role="line"
            id="tspan7020"
-           x="4.8649511"
+           x="4.8649507"
            y="35.835754"
-           style="font-size:4.93888903px;text-align:center;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332;stroke-opacity:1">UART TX</tspan></text>
+           style="font-size:4.93888903px;text-align:center;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332;stroke-opacity:1">UART0 TX</tspan></text>
       <path
          style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
          d="M 26.339718,34.022997 H 19.630642"
          id="path7024"
+         inkscape:connector-curvature="0"
+         sodipodi:nodetypes="cc" />
+      <rect
+         style="fill:#a6ed76;fill-opacity:0.42809364;stroke:#000000;stroke-width:0.42333335;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         id="rect7010-3"
+         width="28.537201"
+         height="7.0870557"
+         x="-9.6708355"
+         y="146.92792" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-weight:normal;font-size:50.79999924px;line-height:1.25;font-family:sans-serif;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+         x="4.7894592"
+         y="152.21959"
+         id="text7022-6"><tspan
+           sodipodi:role="line"
+           id="tspan7020-7"
+           x="4.7894592"
+           y="152.21959"
+           style="font-size:4.93888903px;text-align:center;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332;stroke-opacity:1">UART1 TX</tspan></text>
+      <path
+         style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="M 26.264225,150.40683 H 19.555151"
+         id="path7024-5"
+         inkscape:connector-curvature="0"
+         sodipodi:nodetypes="cc" />
+      <rect
+         style="fill:#a6ed76;fill-opacity:0.42745098;stroke:#000000;stroke-width:0.42333335;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         id="rect7010-3-3"
+         width="28.537201"
+         height="7.0870557"
+         x="-9.6795759"
+         y="158.77002" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-weight:normal;font-size:50.79999924px;line-height:1.25;font-family:sans-serif;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+         x="4.7807207"
+         y="164.06169"
+         id="text7022-6-5"><tspan
+           sodipodi:role="line"
+           id="tspan7020-7-6"
+           x="4.7807212"
+           y="164.06169"
+           style="font-size:4.93888903px;text-align:center;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332;stroke-opacity:1">UART1 RX</tspan></text>
+      <path
+         style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="M 26.255484,162.24894 H 19.54641"
+         id="path7024-5-2"
          inkscape:connector-curvature="0"
          sodipodi:nodetypes="cc" />
     </g>
@@ -325,7 +373,7 @@
            id="tspan7056"
            x="4.8649511"
            y="35.835754"
-           style="font-size:4.93888903px;text-align:center;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332;stroke-opacity:1">UART RX</tspan></text>
+           style="font-size:4.93888903px;text-align:center;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332;stroke-opacity:1">UART0 RX</tspan></text>
       <path
          style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
          d="M 26.339718,34.022997 H 19.630642"

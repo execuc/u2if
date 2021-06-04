@@ -11,7 +11,7 @@ import time
 from machine import u2if, Pin
 
 # Initialize GPIO to output and set the value HIGH
-led = Pin(u2if.GP_3, Pin.OUT, value=Pin.HIGH)
+led = Pin(u2if.GP3, Pin.OUT, value=Pin.HIGH)
 time.sleep(1)
 # Switch off the led
 led.value(Pin.LOW)

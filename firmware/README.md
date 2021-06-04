@@ -13,7 +13,17 @@ The firmware makes the pico act like a USB device (generic HID and CDC). Each co
 To make PICO with this firmware usable in non-root mode, add the following file (/etc/udev/rules.d/55-u2if.rules):
 
 ```bash
+# PICO
 SUBSYSTEM=="usb", ATTR{idVendor}=="cafe", ATTR{idProduct}=="4005", MODE="0666"
+# Adafruit Feather
+SUBSYSTEM=="usb", ATTR{idVendor}=="239a", ATTR{idProduct}=="00f1", MODE="0666"
+# Adafruit ItsyBitsy
+SUBSYSTEM=="usb", ATTR{idVendor}=="239a", ATTR{idProduct}=="00fd", MODE="0666"
+# Adafruit QT2040 Trinkey
+SUBSYSTEM=="usb", ATTR{idVendor}=="239a", ATTR{idProduct}=="0109", MODE="0666"
+# Adafruit QTPY
+SUBSYSTEM=="usb", ATTR{idVendor}=="239a", ATTR{idProduct}=="00f7", MODE="0666"
+
 ```
 
 Then reboot or reload udev rules:
@@ -23,7 +33,7 @@ Then reboot or reload udev rules:
 
 ## Get pico-sdk submodule
 In u2if directory:
- - git submodule update --init   # Bring in pico-sdk submodule
+ - git submodule update --init --recursive
 
 ## Build firmware
 In u2if/firmware/source directory:

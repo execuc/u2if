@@ -4,21 +4,26 @@ import serial
 from . import helper
 from . import u2if_const as report_const
 
+COMPATIBLE_BOARD_PID_VID = [
+    # (VID, PID)
+    (0xcafe, 0x4005),  # pico
+    (0x239a, 0x00f1),  # Adafruit Feather
+    (0x239a, 0x00fd),  # Adafruit ItsyBitsy
+    (0x239a, 0x0109),  # Adafruit QT2040 Trinket
+    (0x239a, 0x00f7),  # Adafruit QTPY
+]
+
 
 class Device(metaclass=helper.Singleton):
-    VID = 0xcafe
-    PID = 0x4005
 
     def __init__(self, serial_number_str=None):
-        self._hid = hid.Device(Device.VID,  Device.PID, serial_number_str)
-        self.serial_number = self._hid.serial
-        self._reset()
-        self._hid.close()
+        self.vid, self.pid, self.serial_number = self._get_compatible_board_and_reset(serial_number_str)
+        if self.serial_number is None:
+            raise ValueError("No board found")
         time.sleep(1)
-        self._hid = hid.Device(Device.VID,  Device.PID, self.serial_number)
-        device = helper.find_serial_port(Device.VID,  Device.PID, self.serial_number)
+        self._hid = hid.Device(self.vid, self.pid, self.serial_number)
+        device = helper.find_serial_port(self.vid, self.pid, self.serial_number)
         self._serial = serial.Serial(device)
-        #self.serial_number = self._get_serial_number()
         self.firmware_version = self._get_firmware_version()
         # self._report_events_list = []
         self._irq_event_callbacks = {}
@@ -27,6 +32,18 @@ class Device(metaclass=helper.Singleton):
         res = self.send_report(bytes([report_const.SYS_RESET]), response=True)
         if res[1] != report_const.OK:
             raise RuntimeError("Reset error.")
+
+    def _get_compatible_board_and_reset(self, serial_number_str=None):
+        for vid, pid in COMPATIBLE_BOARD_PID_VID:
+            try:
+                self._hid = hid.Device(vid, pid, serial_number_str)
+                serial_number = self._hid.serial
+                self._reset()
+                self._hid.close()
+            except hid.HIDException:
+                continue
+            return vid, pid, serial_number
+        return None, None, None
 
     def get_serial_number(self):
         return self.serial_number

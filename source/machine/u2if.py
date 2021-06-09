@@ -56,7 +56,7 @@ class Device(metaclass=helper.Singleton):
         if response:
             res = self.read_hid(report[0])
             if res[1] == report_const.NOT_CONCERNED:
-                raise RuntimeError("Unknown command. Maybe the peripheral is not defined in firmware cmake.")
+                raise RuntimeError("Unknown command. Maybe the interface is not enabled in firmware.")
             return res
         return None
 

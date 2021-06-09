@@ -15,6 +15,7 @@ class Pin:
 
     def __init__(self, pin_id, mode=None, pull=None, value=None):
         self.id = pin_id
+        self.mode = mode
         self.has_irq = False
         self._device = Device()
         if mode is not None:

@@ -33,7 +33,7 @@ Note: now, firmware part can be also used with Adafruit Blinka !
 ## Implemented Interfaces
 The following features are coded:
 
-* machine.Pin: input (+irq, +debounced), output (+pull down/up).
+* machine.Pin: input (+irq, +debounced), output (+pull down/up) and grouped pins.
 * machine.Signal
 * machine.ADC: read (12bits)
 * machine.UART

@@ -16,12 +16,12 @@
 
 #define BOARD ${BOARD}
 
-#define GPIO_ENABLED    1
-#define ADC_ENABLED     ${ADC_ENABLED}
-#define PWM_ENABLED     ${PWM_ENABLED}
-#define I2S_ALLOW       ${I2S_ALLOW}          // depends of the selected board, use many many ram
-#define WS2812_ENABLED  ${WS2812_ENABLED}
-#define WS2812_SIZE     ${WS2812_SIZE}      // 0 to disable WS2812B interface
+#define GPIO_ENABLED        1
+#define ADC_ENABLED         ${ADC_ENABLED}
+#define PWM_ENABLED         ${PWM_ENABLED}
+#define I2S_ALLOW           ${I2S_ALLOW}          // depends of the selected board, use many many ram
+#define WS2812_ENABLED      ${WS2812_ENABLED}
+#define WS2812_SIZE         ${WS2812_SIZE}      // 0 to disable WS2812B interface
 
 
 //---------------------------------------------------------

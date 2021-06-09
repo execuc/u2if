@@ -88,6 +88,12 @@ namespace Report {
         // | GPIO_GET_IRQ | => | GPIO_GET_IRQ | CmdStatus::OK | IRQ_NUMBER | IRQ(GP NUMBER[0..5] | EVENT (EVENT_RISING | EVENT_FALLING) [6..7]) * IRQ_NUMBER|
         GPIO_GET_IRQ = 0x24,
 
+        // GROUP GPIO: pins must be initialized separately
+        // | GROUP_GPIO_SET_VALUES | GP MASK[4] L.Endian | VALUES[4] (0=LOW; 1=HIGH) L.Endian |
+        GROUP_GPIO_SET_VALUES = 0x28,
+        // | GROUP_GPIO_GET_ALL_VALUES | => | GPIO_GET_VALUE | CmdStatus::OK | VALUES[4] (0=LOW; 1=HIGH) L.Endian |
+        GROUP_GPIO_GET_ALL_VALUES = 0x29,
+
         // PWM
         // | PWM_INIT_PIN | GP NUMBER | => | PWM_INIT_PIN |  CmdStatus::OK|NOK | GP NUMBER | SLICE NUMBER | CHANNEL | err : 0x01: Already used slice
         PWM_INIT_PIN = 0x30,

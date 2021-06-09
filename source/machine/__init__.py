@@ -1,5 +1,6 @@
 from .i2c import I2C
 from .pin import Pin
+from .group_pin import GroupPin
 from .signal import Signal
 from .pwm import PWM
 from .adc import ADC

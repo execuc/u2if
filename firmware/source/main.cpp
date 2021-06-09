@@ -23,6 +23,7 @@ extern "C" {
 #include "interfaces/Uart.h"
 #include "interfaces/Ws2812b.h"
 #include "interfaces/I2s.h"
+#include "interfaces/GroupGpio.h"
 
 
 void sendOrSaveResponse(uint8_t response[64]);
@@ -36,6 +37,7 @@ static System sys;
 
 #if GPIO_ENABLED
 static Gpio gpio;
+static GroupGpio group_gpio;
 #endif
 
 #if I2C0_ENABLED
@@ -78,7 +80,9 @@ static Ws2812b ws2812b(WS2812_SIZE);
 static I2s i2s(4000, 5);
 #endif
 
-static std::vector<BaseInterface*> interfaces = { &gpio
+static std::vector<BaseInterface*> interfaces = { 
+&gpio
+, &group_gpio
 #if I2C0_ENABLED
 , &ic2_0
 #endif

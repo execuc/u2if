@@ -7,7 +7,7 @@ get_filename_component(PICO_SDK_PATH "${CMAKE_CURRENT_LIST_DIR}/../pico-sdk" ABS
 # note: this must happen before project()
 include(pico_sdk_import.cmake)
 
-project(u2if VERSION "0.5.0")
+project(u2if VERSION "0.6.0")
 
 # initialize the Pico SDK
 pico_sdk_init()

@@ -40,8 +40,9 @@ The following features are coded:
 * machine.I2C
 * machine.SPI
 * machine.PWM
-* WS2812B led
 * I2S
+* WS2812B led (https://youtu.be/WCGI4C6nZ-o)
+* HUB75 (https://youtu.be/qRShI9y964Q)
 
 
 ## Licenses and Project directories

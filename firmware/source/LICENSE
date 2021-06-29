@@ -56,7 +56,7 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -------------------------------------------------------------------------------------------------------------------------
 
 -----------------------------------------
-Raspberry Pico Examples, for ws2812 led (https://github.com/raspberrypi/pico-examples):
+Raspberry Pico Examples, for ws2812 led and hub75 (https://github.com/raspberrypi/pico-examples):
 -----------------------------------------
 
 ;

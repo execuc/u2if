@@ -8,6 +8,7 @@ from .uart import UART
 from .spi import SPI
 from .i2s import I2S
 from .ws2812b import WS2812B
+from .hub75 import HUB75
 from .u2if_const import u2if
 from .u2if import Device
 

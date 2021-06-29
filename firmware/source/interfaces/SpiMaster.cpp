@@ -44,16 +44,17 @@ CmdStatus SPIMaster::task(uint8_t response[64]) {
         return CmdStatus::NOT_CONCERNED;
 
     bool error = false;
+    StreamBuffer &buf =  getBuffer();
     while(_totalRemainingBytesToSend > 0 && streamRxAvailableSize() && !error){
         streamRxRead();
-        uint nbBytes = std::min(_totalRemainingBytesToSend, _bufferRx.size());
-        int nbWritten = spi_write_blocking (_spiInst, _bufferRx.getDataPtr8(), nbBytes);
+        uint nbBytes = std::min(_totalRemainingBytesToSend, buf.size());
+        int nbWritten = spi_write_blocking (_spiInst, buf.getDataPtr8(), nbBytes);
         if(nbWritten != static_cast<int>(nbBytes)) {
             error = true;
         } else {
             _totalRemainingBytesToSend -= static_cast<uint>(nbWritten);
         }
-        _bufferRx.setSize(0);
+        buf.setSize(0);
         //printf("->Total = %d\n", _totalRemainingBytesToSend);
 
         break; // break ou pas ? est ce qu'on essaye de tout envoyer sans redonner la main a l'event loop ou on fait le contraire ?

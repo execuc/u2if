@@ -42,15 +42,16 @@ CmdStatus I2CMaster::task(uint8_t response[64]) {
         return CmdStatus::NOT_CONCERNED;
 
     bool error = false;
+    StreamBuffer &buf =  getBuffer();
     while(_totalRemainingBytesToSend > 0 && streamRxAvailableSize() && !error){
         streamRxRead();
-        uint nbBytes = std::min(_totalRemainingBytesToSend, _bufferRx.size());
+        uint nbBytes = std::min(_totalRemainingBytesToSend, buf.size());
         bool noStop = (_totalRemainingBytesToSend - nbBytes) > 0;
 
         int nbWritten = i2c_write_blocking(
             _i2cInst,
             _currentStreamAddress, // addr
-            _bufferRx.getDataPtr8(), //src
+            buf.getDataPtr8(), //src
             nbBytes, //len
             noStop
         );
@@ -61,7 +62,7 @@ CmdStatus I2CMaster::task(uint8_t response[64]) {
         } else {
             _totalRemainingBytesToSend -= static_cast<uint>(nbWritten);
         }
-        _bufferRx.setSize(0);
+        buf.setSize(0);
 
         break; // break ou pas ? est ce qu'on essaye de tout envoyer sans redonner la main a l'event loop ou on fait le contraire ?
     }

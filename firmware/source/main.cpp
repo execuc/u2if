@@ -23,6 +23,7 @@ extern "C" {
 #include "interfaces/Uart.h"
 #include "interfaces/Ws2812b.h"
 #include "interfaces/I2s.h"
+#include "interfaces/Hub75.h"
 #include "interfaces/GroupGpio.h"
 
 
@@ -80,6 +81,10 @@ static Ws2812b ws2812b(WS2812_SIZE);
 static I2s i2s(4000, 5);
 #endif
 
+#if HUB75_ENABLED
+static Hub75 hub75(HUB75_MAX_LEDS*4);
+#endif
+
 static std::vector<BaseInterface*> interfaces = { 
 &gpio
 , &group_gpio
@@ -112,6 +117,9 @@ static std::vector<BaseInterface*> interfaces = {
 #endif
 #if I2S_ENABLED
 , &i2s
+#endif
+#if HUB75_ENABLED
+, &hub75
 #endif
 , &sys
 };

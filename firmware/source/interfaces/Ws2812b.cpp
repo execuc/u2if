@@ -45,12 +45,12 @@ CmdStatus Ws2812b::task(uint8_t response[64]) {
     CmdStatus status = CmdStatus::NOT_CONCERNED;
     if(_internalState == INTERNAL_STATE::IDLE) {
         status = CmdStatus::NOT_CONCERNED;
-    } else if(_internalState == INTERNAL_STATE::WAIT_PIXELS && _bufferRx.size() < _totalRemainingBytesToSend) {
+    } else if(_internalState == INTERNAL_STATE::WAIT_PIXELS && getBuffer().size() < _totalRemainingBytesToSend) {
         streamRxRead();
         status = CmdStatus::NOT_FINISHED;
-    } else if(_internalState == INTERNAL_STATE::WAIT_PIXELS) {// && _bufferRx.size() >= _totalRemainingBytesToSend)
+    } else if(_internalState == INTERNAL_STATE::WAIT_PIXELS) {// && getBuffer().size() >= _totalRemainingBytesToSend)
         _internalState = INTERNAL_STATE::TRANSFER_IN_PROGRESS;
-        startTransfer(_bufferRx.getDataPtr32(), _totalRemainingBytesToSend / 4);
+        startTransfer(getBuffer().getDataPtr32(), _totalRemainingBytesToSend / 4);
         // send ACK
         response[0] = Report::ID::WS2812B_WRITE;
         status = CmdStatus::OK;
@@ -61,7 +61,7 @@ CmdStatus Ws2812b::task(uint8_t response[64]) {
         status = CmdStatus::NOT_FINISHED;
     } else if(_internalState == INTERNAL_STATE::TRANSFER_FINISHED) {
         _totalRemainingBytesToSend = 0;
-        _bufferRx.setSize(0);
+        getBuffer().setSize(0);
         _internalState = INTERNAL_STATE::IDLE;
         status = CmdStatus::NOT_CONCERNED; //ACK was already sent
     }

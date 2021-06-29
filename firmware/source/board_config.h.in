@@ -20,9 +20,10 @@
 #define ADC_ENABLED         ${ADC_ENABLED}
 #define PWM_ENABLED         ${PWM_ENABLED}
 #define I2S_ALLOW           ${I2S_ALLOW}          // depends of the selected board, use many many ram
+#define HUB75_ALLOW         ${HUB75_ALLOW}          // depends of the selected board, use many many ram
 #define WS2812_ENABLED      ${WS2812_ENABLED}
 #define WS2812_SIZE         ${WS2812_SIZE}      // 0 to disable WS2812B interface
-
+#define HUB75_MAX_LEDS      ${HUB75_MAX_LEDS}
 
 //---------------------------------------------------------
 // Feather 
@@ -165,6 +166,9 @@
   #define U2IF_I2S_CLK 10
   #define U2IF_I2S_WS  11
   #define U2IF_I2S_SD  12
+  // HUB75
+  #define HUB75_ENABLED  HUB75_ALLOW
+  
 #else
   #warning "Please define board type"
 #endif
@@ -215,6 +219,8 @@
 #define U2IF_I2S_SD  99
 #endif
 
-
+#ifndef HUB75_ENABLED
+#define HUB75_ENABLED 0
+#endif
 
 #endif // _U2IF_BOARD_CONFIG_H

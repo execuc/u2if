@@ -185,7 +185,7 @@ I2C1_WRITE_FROM_UART = I2C0_WRITE_FROM_UART + I2C0_I2C1_OFFSET
 WS2812B_INIT = 0xA0
 # | WS2812B_DEINIT |
 WS2812B_DEINIT = 0xA1
-# | WS2812B_WRITE | ADDR | NB_BYTES[4] L.Endian (== NB_LED *4)| => First | WS2812B_WRITE | CmdStatus::OK|NOK | err:0x01 (Too many led for the firmware) err:0x02 (Transfer already in progress) |
+# | WS2812B_WRITE  | NB_BYTES[4] L.Endian (== NB_LED *4)| => First | WS2812B_WRITE | CmdStatus::OK|NOK | err:0x01 (Too many led for the firmware) err:0x02 (Transfer already in progress) |
 # ... and after the CDC stream (when transfer to led starting) | WS2812B_WRITE | CmdStatus::OK |
 WS2812B_WRITE = 0xA2
 
@@ -198,3 +198,12 @@ I2S_DEINIT = 0xB1
 I2S_SET_FREQ = 0xB2
 # | I2S_WRITE_BUFFER | BUFFER_SIZE[4] L.Endian (MAX=4000bytes)| => First | I2S_WRITE_BUFFER | CmdStatus::OK | and after the CDC stream | I2S_WRITE_BUFFER | CmdStatus::OK |
 I2S_WRITE_BUFFER = 0xB3
+
+# HUB75 0xDX
+# | HUB75_INIT | WIDTH | HEIGHT |
+HUB75_INIT = 0xD0
+# | HUB75_DEINIT |
+HUB75_DEINIT = 0xD1
+# | HUB75_WRITE | NB_BYTES[4] L.Endian (WIDTH * HEIGHT)| => First | HUB75_WRITE | CmdStatus::OK|NOK |
+# ... and after the CDC stream (when transfer to led starting) | HUB75_WRITE | CmdStatus::OK |
+HUB75_WRITE = 0xD2

@@ -3,9 +3,8 @@
 
 #include "tusb.h"
 
-StreamedInterface::StreamedInterface(uint streamBufferSize)
-    : _bufferRx(streamBufferSize), _totalRemainingBytesToSend(0){
-
+StreamedInterface::StreamedInterface(uint streamBufferSize, bool doubleBuffer)
+    : _bufferRx(streamBufferSize), _bufferRx2(doubleBuffer ? streamBufferSize : 0), _totalRemainingBytesToSend(0), _currentBufferIndex(0){
 }
 
 StreamedInterface::~StreamedInterface() {
@@ -21,7 +20,8 @@ uint32_t StreamedInterface::streamRxAvailableSize() {
 }
 
 uint32_t StreamedInterface::streamRxRead() {
-    uint32_t nbByteCanRead = std::min(_bufferRx.getAllocateSize() - _bufferRx.size(), streamRxAvailableSize());
-    _bufferRx.setSize(_bufferRx.size() + tud_cdc_read(_bufferRx.getDataPtr8() + _bufferRx.size(), nbByteCanRead));
-    return _bufferRx.size();
+    StreamBuffer &buf = getBuffer();
+    uint32_t nbByteCanRead = std::min(buf.getAllocateSize() - buf.size(), streamRxAvailableSize());
+    buf.setSize(buf.size() + tud_cdc_read(buf.getDataPtr8() + buf.size(), nbByteCanRead));
+    return buf.size();
 }

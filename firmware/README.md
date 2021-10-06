@@ -35,6 +35,8 @@ KERNEL=="hidraw*", ATTRS{idVendor}=="cafe", ATTRS{idProduct}=="4005", TAG+="uacc
 KERNEL=="hidraw*", ATTRS{idVendor}=="239a", ATTRS{idProduct}=="00f1", TAG+="uaccess", GROUP="plugdev", MODE="0660"
 # Adafruit ItsyBitsy
 KERNEL=="hidraw*", ATTRS{idVendor}=="239a", ATTRS{idProduct}=="00fd", TAG+="uaccess", GROUP="plugdev", MODE="0660"
+# Adafruit MacroPad (NEEDS NEW PID)
+KERNEL=="hidraw*", ATTRS{idVendor}=="239a", ATTRS{idProduct}=="0000", TAG+="uaccess", GROUP="plugdev", MODE="0660"
 # Adafruit QT2040 Trinkey
 KERNEL=="hidraw*", ATTRS{idVendor}=="239a", ATTRS{idProduct}=="0109", TAG+="uaccess", GROUP="plugdev", MODE="0660"
 # Adafruit QTPY
@@ -65,6 +67,7 @@ Compatible board can be:
  - PICO
  - FEATHER
  - ITSYBITSY 
+ - MACROPAD
  - QTPY
  - QT2040_TRINKEY
 

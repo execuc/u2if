@@ -59,6 +59,11 @@
   #define USB_PRD "QT2040 Trinkey U2IF"
   #define USB_VID 0x239A
   #define USB_PID 0x0109
+#elif BOARD == MACROPAD
+  #define USB_MFG "Adafruit"
+  #define USB_PRD "MacroPad RP2040 U2IF"
+  #define USB_VID 0x239A
+  #define USB_PID 0x0000 // NEEDS A NEW ONE
 #elif BOARD == PICO
   #define USB_MFG "Pico"
   #define USB_PRD "U2IF"

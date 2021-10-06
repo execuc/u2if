@@ -9,6 +9,7 @@ COMPATIBLE_BOARD_PID_VID = [
     (0xcafe, 0x4005),  # pico
     (0x239a, 0x00f1),  # Adafruit Feather
     (0x239a, 0x00fd),  # Adafruit ItsyBitsy
+    (0x239a, 0x0000),  # Adafruit MacroPad (NEEDS A NEW ONE)
     (0x239a, 0x0109),  # Adafruit QT2040 Trinket
     (0x239a, 0x00f7),  # Adafruit QTPY
 ]

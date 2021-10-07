@@ -13,6 +13,7 @@
 #define ITSYBITSY       3
 #define QTPY            4
 #define QT2040_TRINKEY  5
+#define MACROPAD        6
 
 #define BOARD ${BOARD}
 
@@ -131,6 +132,23 @@
   #define U2IF_UART0_TX 1
   #define U2IF_UART0_RX 2
 
+//---------------------------------------------------------
+// MacroPad
+//---------------------------------------------------------
+#elif BOARD == MACROPAD
+  // I2C0
+  #define I2C0_ENABLED 1
+  #define U2IF_I2C0_SDA 20
+  #define U2IF_I2C0_SCL 21
+  // SPI1
+  #define SPI1_ENABLED 1
+  #define U2IF_SPI1_CK 26
+  #define U2IF_SPI1_MOSI 27
+  #define U2IF_SPI1_MISO 28
+  // UART1
+  #define UART1_ENABLED 1
+  #define U2IF_UART1_TX 20
+  #define U2IF_UART1_RX 21
 //---------------------------------------------------------
 // Pico (default)
 //---------------------------------------------------------

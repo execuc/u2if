@@ -150,6 +150,19 @@ Implemented interfaces:
 
 </details>
 
+### Adafruit MacroPad RP2040
+<details>
+
+Implemented interfaces:
+ - GPIO
+ - PWM
+ - UART1
+ - I2C0
+ - SPI1
+ - WS2812B
+
+</details>
+
 ### Adafruit Trinkey QT2040
 <details>
 

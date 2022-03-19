@@ -65,7 +65,7 @@ class I2C(object):
         found = []
         for addr in range(start, end + 1):
             try:
-                self._i2c_writeto(addr, b"\x00\x00\x00")
+                self.readfrom(addr, b"\x01")
             except RuntimeError:
                 continue
             found.append(addr)

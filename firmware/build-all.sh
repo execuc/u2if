@@ -30,4 +30,5 @@ build feather FEATHER 0 0 1000 0
 build itsybitsy ITSYBITSY 0 0 1000 0
 build qtpy QTPY 0 0 1000 0
 build qt2040_trinkey QT2040_TRINKEY 0 0 1000 0
-
+build seeed_xiao SEEED_XIAO 0 0 1000 0
+build waveshare_zero WAVESHARE_ZERO 0 0 1000 0

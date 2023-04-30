@@ -65,6 +65,16 @@
   #define USB_VID 0xCAFE
   #define USB_PID           (0x4000 | _PID_MAP(CDC, 0) | _PID_MAP(MSC, 1) | _PID_MAP(HID, 2) | \
                             _PID_MAP(MIDI, 3) | _PID_MAP(VENDOR, 4) )
+#elif BOARD == WAVESHARE_ZERO
+ #define USB_MFG "Waveshare"
+  #define USB_PRD "RP2040-Zero U2IF"
+  #define USB_VID 0x2E8A
+  #define USB_PID 0x101F
+#elif BOARD == SEEED_XIAO
+ #define USB_MFG "Seeed Studio"
+  #define USB_PRD "XIAO RP2040 U2IF"
+  #define USB_VID 0x2E8A
+  #define USB_PID 0x0005
 #else
   #warning "Please define board type"
 #endif

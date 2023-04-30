@@ -13,6 +13,8 @@
 #define ITSYBITSY       3
 #define QTPY            4
 #define QT2040_TRINKEY  5
+#define SEEED_XIAO      6
+#define WAVESHARE_ZERO  7
 
 #define BOARD ${BOARD}
 
@@ -168,6 +170,42 @@
   #define U2IF_I2S_SD  12
   // HUB75
   #define HUB75_ENABLED  HUB75_ALLOW
+  
+//---------------------------------------------------------
+// SEEED_XIAO
+//---------------------------------------------------------
+#elif BOARD == SEEED_XIAO
+  // I2C1
+  #define I2C1_ENABLED 1
+  #define U2IF_I2C1_SDA 6
+  #define U2IF_I2C1_SCL 7
+  // SPI0
+  #define SPI0_ENABLED 1
+  #define U2IF_SPI0_CK 2
+  #define U2IF_SPI0_MOSI 3
+  #define U2IF_SPI0_MISO 4
+  // UART0
+  #define UART0_ENABLED 1
+  #define U2IF_UART0_TX 0
+  #define U2IF_UART0_RX 1
+
+//---------------------------------------------------------
+// WAVESHARE_ZERO
+//---------------------------------------------------------
+#elif BOARD == WAVESHARE_ZERO
+  // I2C1
+  #define I2C1_ENABLED 1
+  #define U2IF_I2C1_SDA 14
+  #define U2IF_I2C1_SCL 15
+  // SPI1
+  #define SPI1_ENABLED 1
+  #define U2IF_SPI1_CK 10
+  #define U2IF_SPI1_MOSI 11
+  #define U2IF_SPI1_MISO 12
+  // UART0
+  #define UART0_ENABLED 1
+  #define U2IF_UART0_TX 0
+  #define U2IF_UART0_RX 1  
   
 #else
   #warning "Please define board type"

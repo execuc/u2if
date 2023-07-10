@@ -130,6 +130,8 @@ CmdStatus Gpio::initPin(uint8_t const *cmd) {
         gpio_pull_up(gp);
     } else if(dir == GPIO_IN && cmd[3] == 2) {
         gpio_pull_down(gp);
+    } else if (dir == GPIO_IN) {
+        gpio_disable_pulls(gp);
     }
     //a voir gpio_set_outover(gpio, GPIO_OVERRIDE_INVERT);
     return CmdStatus::OK;

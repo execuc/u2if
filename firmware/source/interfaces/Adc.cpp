@@ -32,7 +32,7 @@ CmdStatus Adc::task(uint8_t response[64]) {
 }
 
 int8_t Adc::getAdcIndexFromGpio(uint8_t gpio) {
-    if(gpio < 26 || gpio > 28)
+    if(gpio < 26 || gpio > 29)
         return -1;
     else
         return (static_cast<int8_t>(gpio)-26);

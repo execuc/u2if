@@ -29,7 +29,7 @@ class SPI(object):
 
     def read(self, nbytes, write=0):
         buf = bytearray(nbytes)
-        self.readfrom_into(buf, write)
+        self._read_from_into(buf, write)
         return buf
 
     def readinto(self, buf, write=0):

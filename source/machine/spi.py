@@ -11,9 +11,8 @@ class SPI(object):
     def __del__(self):
         self.deinit()
 
-    def init(self, baudrate=1000000):
+    def init(self, baudrate=1000000, mode=0x00):
         report_id = report_const.SPI0_INIT if self.spi_index == 0 else report_const.SPI1_INIT
-        mode = 0x00  # to implement
         res = self._device.send_report(bytes([report_id, mode]) + baudrate.to_bytes(4, byteorder='little'))
         if res[1] != report_const.OK:
             raise RuntimeError("SPI init error.")

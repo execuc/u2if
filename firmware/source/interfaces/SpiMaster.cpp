@@ -74,6 +74,7 @@ CmdStatus SPIMaster::init(uint8_t const *cmd) {
     uint32_t baudrate = convertBytesToUInt32(&cmd[2]);
 
     spi_init(_spiInst, baudrate);
+    spi_set_format(_spiInst, 8, (mode & 0x02) ? SPI_CPOL_1 : SPI_CPOL_0, (mode & 0x01) ? SPI_CPHA_1 : SPI_CPHA_0, SPI_MSB_FIRST);
     gpio_set_function(_clkGP, GPIO_FUNC_SPI);
     gpio_set_function(_mosiGP, GPIO_FUNC_SPI);
     gpio_set_function(_misoGP, GPIO_FUNC_SPI);
